@@ -45,7 +45,7 @@ updateBoard command board = do
 
 -- Function to parse a command like "e2 e4" into coordinate pairs
 parseCommand :: String -> ((Int, Int), (Int, Int))
-parseCommand command =
+parseCommand command = 
   let [from, to] = words command
   in (parseSquare from, parseSquare to)
 
