@@ -6,7 +6,9 @@ import Graphics.Gloss
 import Graphics.Gloss.Interface.Pure.Game (play, Display(InWindow), white)
 import Control.Concurrent (forkIO, threadDelay)
 import System.IO (hFlush, stdout)
-import Chess (initialChessboard, drawChessboardSprites, makeMove, Chessboard)
+import ChessLogic (makeMove)
+import Chessboard (initialChessboard, drawChessboard, Chessboard)
+import ChessSprites (drawChessboardSprites)
 
 main :: IO ()
 main = do
@@ -56,20 +58,3 @@ parseSquare [file, rank] = (fileToInt file, rankToInt rank)
     fileToInt c = fromEnum c - fromEnum 'a'
     rankToInt c = fromEnum c - fromEnum '1'
 parseSquare _ = error "Invalid square"
-
--- Function to draw the chessboard
-drawChessboard :: Picture
-drawChessboard = pictures [drawSquare x y | x <- [0..7], y <- [0..7]]
-
--- Function to draw a single square of the chessboard
-drawSquare :: Int -> Int -> Picture
-drawSquare x y = translate (fromIntegral x * 50 - 175) (fromIntegral y * 50 - 175) $
-                 color (if even (x + y) then darkBrown else lightBrown) $
-                 rectangleSolid 50 50
-
--- Define custom colors
-darkBrown :: Color
-darkBrown = makeColorI 139 69 19 255  -- Saddle Brown
-
-lightBrown :: Color
-lightBrown = makeColorI 244 164 96 255 -- Sandy Brown
