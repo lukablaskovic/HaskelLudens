@@ -1,8 +1,4 @@
-module ChessPieces (
-    Color(..),
-    Piece(..),
-    Square(..)
-) where
+module ChessPieces (Color(..), Piece(..), Square(..)) where
 
 -- Data type to represent chess pieces
 data Color = White | Black deriving (Eq, Show)

@@ -1,6 +1,4 @@
-module ChessLogic (
-    makeMove
-) where
+module ChessLogic (makeMove) where
 
 import ChessPieces
 import Chessboard

@@ -1,14 +1,16 @@
+module Main where
+
 import Control.Monad (forever)
 import Data.IORef (IORef, atomicWriteIORef, newIORef, readIORef)
-import Graphics.Gloss (Display (InWindow), Picture (Text), white)
-import Graphics.Gloss.Interface.IO.Simulate (ViewPort, simulateIO,)
-import Graphics.Gloss
-import Graphics.Gloss.Interface.Pure.Game (play, Display(InWindow), white)
-import Control.Concurrent (forkIO, threadDelay)
+import Graphics.Gloss (Display (InWindow), Picture, black, pictures)
+import Graphics.Gloss.Interface.IO.Simulate (ViewPort, simulateIO)
+import Control.Concurrent (forkIO)
 import System.IO (hFlush, stdout)
 import ChessLogic (makeMove)
 import Chessboard (initialChessboard, drawChessboard, Chessboard)
 import ChessSprites (drawChessboardSprites)
+import PlayerInput (parseCommand)
+import ChessPieces (Color(..))
 
 main :: IO ()
 main = do
@@ -31,30 +33,20 @@ env2Pic board = do
 step :: IORef Chessboard -> ViewPort -> Float -> Chessboard -> IO Chessboard
 step boardRef _ _ _ = readIORef boardRef
 
--- Terminal input loop
 terminalInputLoop :: IORef Chessboard -> IO ()
 terminalInputLoop boardRef = forever $ do
-  putStr "Enter command (e.g., 'e2 e4'): "
+  putStr "Enter command (e.g., 'e2e4', 'Nf3'): "
   hFlush stdout  -- Ensure the prompt is displayed immediately
   command <- getLine
-  atomicWriteIORef boardRef =<< updateBoard command =<< readIORef boardRef
+  updatedBoard <- updateBoard command =<< readIORef boardRef
+  case updatedBoard of
+    Just board -> atomicWriteIORef boardRef board
+    Nothing -> putStrLn "Invalid command. Please try again."
 
--- Function to update the board based on the command
-updateBoard :: String -> Chessboard -> IO Chessboard
+updateBoard :: String -> Chessboard -> IO (Maybe Chessboard)
 updateBoard command board = do
-  let (from, to) = parseCommand command
-  return $ makeMove from to board
-
--- Function to parse a command like "e2 e4" into coordinate pairs
-parseCommand :: String -> ((Int, Int), (Int, Int))
-parseCommand command = 
-  let [from, to] = words command
-  in (parseSquare from, parseSquare to)
-
--- Function to parse a square like "e2" into a coordinate pair
-parseSquare :: String -> (Int, Int)
-parseSquare [file, rank] = (fileToInt file, rankToInt rank)
-  where
-    fileToInt c = fromEnum c - fromEnum 'a'
-    rankToInt c = fromEnum c - fromEnum '1'
-parseSquare _ = error "Invalid square"
+  -- In this example, let's assume the color is white
+  let color = White
+  case parseCommand command color board of
+    Just (from, to) -> return $ Just (makeMove from to board)
+    Nothing -> return Nothing
