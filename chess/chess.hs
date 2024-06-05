@@ -1,11 +1,10 @@
-module Chess (initialChessboard, drawChessboardSprites) where
+module Chess (initialChessboard, drawChessboardSprites, makeMove, Chessboard) where
 
 import Graphics.Gloss
 
 -- Data type to represent chess pieces
 data Color = White | Black deriving (Eq, Show)-- Data type to represent chess pieces
 data Piece = King Chess.Color | Queen Chess.Color | Rook Chess.Color | Bishop Chess.Color | Knight Chess.Color | Pawn Chess.Color deriving (Eq, Show)
-
 
 -- Data type to represent a square on the chessboard
 data Square = Empty | Occupied Piece deriving (Eq, Show)
@@ -65,3 +64,16 @@ drawChessboardSprites board = do
                         | (x, sq) <- zip [0..] row ]
                       | (y, row) <- zip [0..] board ]
     return $ pictures $ concat spriteBoard
+
+-- Function to make a move on the chessboard
+makeMove :: (Int, Int) -> (Int, Int) -> Chessboard -> Chessboard
+makeMove (fromX, fromY) (toX, toY) board =
+    let piece = board !! fromY !! fromX
+        updatedRow row idx newSquare = take idx row ++ [newSquare] ++ drop (idx + 1) row
+        updatedBoard = take toY board ++
+                       [updatedRow (board !! toY) toX piece] ++
+                       drop (toY + 1) board
+        clearedBoard = take fromY updatedBoard ++
+                       [updatedRow (updatedBoard !! fromY) fromX Empty] ++
+                       drop (fromY + 1) updatedBoard
+    in clearedBoard

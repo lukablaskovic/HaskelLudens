@@ -46,12 +46,12 @@ getBinDir, getLibDir, getDynLibDir, getDataDir, getLibexecDir, getSysconfDir :: 
 
 
 bindir, libdir, dynlibdir, datadir, libexecdir, sysconfdir :: FilePath
-bindir     = "C:\\Users\\Luka\\Documents\\GitHub\\board-games-haskell\\.stack-work\\install\\851a09ad\\bin"
-libdir     = "C:\\Users\\Luka\\Documents\\GitHub\\board-games-haskell\\.stack-work\\install\\851a09ad\\lib\\x86_64-windows-ghc-9.6.5\\gloss-1.13.2.2-16ZNb7pkabm3INkWzKjwmL"
-dynlibdir  = "C:\\Users\\Luka\\Documents\\GitHub\\board-games-haskell\\.stack-work\\install\\851a09ad\\lib\\x86_64-windows-ghc-9.6.5"
-datadir    = "C:\\Users\\Luka\\Documents\\GitHub\\board-games-haskell\\.stack-work\\install\\851a09ad\\share\\x86_64-windows-ghc-9.6.5\\gloss-1.13.2.2"
-libexecdir = "C:\\Users\\Luka\\Documents\\GitHub\\board-games-haskell\\.stack-work\\install\\851a09ad\\libexec\\x86_64-windows-ghc-9.6.5\\gloss-1.13.2.2"
-sysconfdir = "C:\\Users\\Luka\\Documents\\GitHub\\board-games-haskell\\.stack-work\\install\\851a09ad\\etc"
+bindir     = "C:\\Users\\alesa\\Documents\\GitHub\\chess-in-haskell\\.stack-work\\install\\afe9051a\\bin"
+libdir     = "C:\\Users\\alesa\\Documents\\GitHub\\chess-in-haskell\\.stack-work\\install\\afe9051a\\lib\\x86_64-windows-ghc-9.6.5\\gloss-1.13.2.2-16ZNb7pkabm3INkWzKjwmL"
+dynlibdir  = "C:\\Users\\alesa\\Documents\\GitHub\\chess-in-haskell\\.stack-work\\install\\afe9051a\\lib\\x86_64-windows-ghc-9.6.5"
+datadir    = "C:\\Users\\alesa\\Documents\\GitHub\\chess-in-haskell\\.stack-work\\install\\afe9051a\\share\\x86_64-windows-ghc-9.6.5\\gloss-1.13.2.2"
+libexecdir = "C:\\Users\\alesa\\Documents\\GitHub\\chess-in-haskell\\.stack-work\\install\\afe9051a\\libexec\\x86_64-windows-ghc-9.6.5\\gloss-1.13.2.2"
+sysconfdir = "C:\\Users\\alesa\\Documents\\GitHub\\chess-in-haskell\\.stack-work\\install\\afe9051a\\etc"
 
 getBinDir     = catchIO (getEnv "gloss_bindir")     (\_ -> return bindir)
 getLibDir     = catchIO (getEnv "gloss_libdir")     (\_ -> return libdir)
