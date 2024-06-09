@@ -7,10 +7,10 @@ import Graphics.Gloss (Display (InWindow), Picture, black, pictures)
 import Graphics.Gloss.Interface.IO.Simulate (ViewPort, simulateIO)
 import Control.Concurrent (forkIO)
 import System.IO (hFlush, stdout)
-import ChessLogic (makeMove)
-import Chessboard (initialChessboard, drawChessboard, Chessboard)
+import ChessLogic (makeMove, isValidMove)
+import Chessboard (initialChessboard, drawChessboard, Chessboard, pieceAt)
 import ChessSprites (drawChessboardSprites)
-import PlayerInput (parseCommand, isValidMove, pieceAt)
+import PlayerInput (parseCommand)
 import ChessPieces
 
 main :: IO ()
@@ -54,8 +54,6 @@ terminalInputLoop boardRef colorRef = forever $ do
           atomicWriteIORef colorRef (switchColor currentColor)
         Nothing -> do
           putStrLn "Invalid command or move. Please try again."
-          -- Additional prints to clarify why the move was invalid
-          putStrLn "Invalid move. Reasons:"
           case parseCommand command of
             Nothing ->
               putStrLn "   - Invalid command format. Use format 'fromSquare toSquare', e.g., 'e2e4'."
@@ -68,8 +66,6 @@ terminalInputLoop boardRef colorRef = forever $ do
                   let isValid = isValidMove board from to
                   unless isValid $
                     putStrLn "   - Invalid move according to the rules of chess."
-
-
 
 -- Function to print the entire chessboard
 printBoard :: Chessboard -> IO ()

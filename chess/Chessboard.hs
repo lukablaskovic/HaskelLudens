@@ -1,4 +1,4 @@
-module Chessboard (Chessboard, initialChessboard, drawChessboard) where
+module Chessboard (Chessboard, initialChessboard, drawChessboard, pieceAt, isEmpty) where
 
 import Graphics.Gloss
 import ChessPieces
@@ -49,3 +49,13 @@ drawLabel x _ = translate (fromIntegral x * 50 - 175) (-225) $ scale 0.15 0.15 $
 drawSideLabel :: Int -> Picture
 drawSideLabel y = translate (-225) (fromIntegral y * 50 - 175) $ scale 0.15 0.15 $ color white $ text (show (9 - (8 - y)))
 
+-- Function to get the piece at a given position
+pieceAt :: Chessboard -> (Int, Int) -> Maybe Piece
+pieceAt board (x, y) = case board !! y !! x of
+  Occupied piece -> Just piece
+  _ -> Nothing
+
+-- Helper function to check if a square is empty
+isEmpty :: Square -> Bool
+isEmpty Empty = True
+isEmpty _ = False
