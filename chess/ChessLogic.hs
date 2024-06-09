@@ -1,7 +1,12 @@
-module ChessLogic (makeMove, isValidMove) where
+module ChessLogic (makeMove, isValidMove, switchColor) where
 
+import Chessboard (Chessboard, pieceAt)
 import ChessPieces
-import Chessboard
+
+-- Function to switch the current player
+switchColor :: Color -> Color
+switchColor White = Black
+switchColor Black = White
 
 -- Function to make a move on the chessboard if valid
 makeMove :: Color -> (Int, Int) -> (Int, Int) -> Chessboard -> Maybe Chessboard

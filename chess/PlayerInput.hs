@@ -1,7 +1,76 @@
-module PlayerInput (parseCommand) where
+module PlayerInput (terminalInputLoop) where
 
-import Chessboard
+import Data.IORef (IORef, atomicWriteIORef, readIORef)
+import System.IO (hFlush, stdout)
+import Control.Monad (forever, unless)
+import ChessLogic (makeMove, isValidMove, switchColor)
+import Chessboard (Chessboard, pieceAt)
 import ChessPieces
+
+terminalInputLoop :: IORef Chessboard -> IORef Color -> IO ()
+terminalInputLoop boardRef colorRef = forever $ do
+  currentColor <- readIORef colorRef
+  putStrLn $ "Enter command for " ++ show currentColor ++ " (e.g., 'e2e4' or 'pb' to print board): "
+  hFlush stdout  -- Ensure the prompt is displayed immediately
+  command <- getLine
+  board <- readIORef boardRef
+  case command of
+    "pb" -> printBoard board
+    _ -> do
+      let updatedBoard = case parseCommand command of
+            Just (from, to) -> makeMove currentColor from to board
+            Nothing -> Nothing
+      case updatedBoard of
+        Just newBoard -> do
+          atomicWriteIORef boardRef newBoard
+          atomicWriteIORef colorRef (switchColor currentColor)
+        Nothing -> do
+          putStrLn "Invalid command or move. Please try again."
+          case parseCommand command of
+            Nothing ->
+              putStrLn "   - Invalid command format. Use format 'fromSquare toSquare', e.g., 'e2e4'."
+            Just (from, to) -> do
+              let pieceAtFrom = pieceAt board from
+              case pieceAtFrom of
+                Nothing ->
+                  putStrLn "   - No piece at the specified 'from' square."
+                Just piece -> do
+                  let isValid = isValidMove board from to
+                  unless isValid $
+                    putStrLn "   - Invalid move according to the rules of chess."
+
+-- Function to print the entire chessboard
+printBoard :: Chessboard -> IO ()
+printBoard board = do
+  putStrLn "  -----------------"
+  mapM_ (\(rank, row) -> putStrLn $ show rank ++ " |" ++ showRow row ++ "|") (reverse numberedRows)
+  putStrLn "  -----------------"
+  putStrLn "   a b c d e f g h"
+
+  where
+    numberedRows = zip [1..8] board
+    showRow :: [Square] -> String
+    showRow row = unwords $ map showPiece row
+
+-- Function to show a single piece or empty square
+showPiece :: Square -> String
+showPiece (Occupied piece) = showPiece' piece
+showPiece Empty = "."
+
+-- Function to show a single piece
+showPiece' :: Piece -> String
+showPiece' (Pawn White) = "P"
+showPiece' (Rook White) = "R"
+showPiece' (Knight White) = "N"
+showPiece' (Bishop White) = "B"
+showPiece' (Queen White) = "Q"
+showPiece' (King White) = "K"
+showPiece' (Pawn Black) = "p"
+showPiece' (Rook Black) = "r"
+showPiece' (Knight Black) = "n"
+showPiece' (Bishop Black) = "b"
+showPiece' (Queen Black) = "q"
+showPiece' (King Black) = "k"
 
 -- Function to parse a command like "e2e4" into coordinate pairs
 parseCommand :: String -> Maybe ((Int, Int), (Int, Int))
