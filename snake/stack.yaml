@@ -1,0 +1,6 @@
+resolver:
+  url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/22/26.yaml
+
+packages:
+  - gloss-1.13.2.2
+  - gloss-juicy-0.2.3

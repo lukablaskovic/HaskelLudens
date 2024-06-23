@@ -4,7 +4,7 @@ import Graphics.Gloss
 import ChessPieces
 import Chessboard
 
--- Function to load images for chess pieces
+
 loadImages :: IO [(Piece, Picture)]
 loadImages = do
     let whitePieces = [ (King White, "white_king")
@@ -23,11 +23,10 @@ loadImages = do
     blackImages <- mapM (\(piece, fileName) -> (piece,) <$> loadBMP ("sprites/" ++ fileName ++ ".bmp")) blackPieces
     return $ whiteImages ++ blackImages
 
--- Function to draw chessboard with sprites/images
 drawChessboardSprites :: Chessboard -> IO Picture
 drawChessboardSprites board = do
     images <- loadImages
-    let squareSize = 50  -- Adjust as needed
+    let squareSize = 50
         xOffset = fromIntegral $ negate $ squareSize * 4 - 25
         yOffset = fromIntegral $ negate $ squareSize * 4 - 25
         spriteBoard = [ [ case sq of
