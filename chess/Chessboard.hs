@@ -3,13 +3,10 @@ module Chessboard (Chessboard, initialChessboard, drawChessboard, pieceAt, isEmp
 import Graphics.Gloss
 import ChessPieces
 
--- Type synonym for a row of the chessboard
-type Row = [Square]
 
--- Type synonym for the chessboard
+type Row = [Square]
 type Chessboard = [Row]
 
--- Initial state of the chessboard with pieces in their starting positions
 initialChessboard :: Chessboard
 initialChessboard =
   [ [ Occupied (Rook White), Occupied (Knight White), Occupied (Bishop White), Occupied (Queen White)
@@ -24,38 +21,36 @@ initialChessboard =
     , Occupied (King Black), Occupied (Bishop Black), Occupied (Knight Black), Occupied (Rook Black) ]
   ]
 
--- Function to draw the chessboard
+
 drawChessboard :: Picture
 drawChessboard = pictures ([drawSquare x y | x <- [0..7], y <- [0..7]] ++ [drawLabel x y | x <- [0..7], y <- [0..7]] ++ [drawSideLabel x | x <- [0..7]])
 
--- Function to draw a single square of the chessboard
 drawSquare :: Int -> Int -> Picture
 drawSquare x y = translate (fromIntegral x * 50 - 175) (fromIntegral y * 50 - 175) $
                  color (if even (x + y) then darkBrown else lightBrown) $
                  rectangleSolid 50 50
 
--- Define custom colors
+
 darkBrown :: Graphics.Gloss.Color
-darkBrown = makeColorI 139 69 19 255  -- Saddle Brown
+darkBrown = makeColorI 139 69 19 255
 
 lightBrown :: Graphics.Gloss.Color
-lightBrown = makeColorI 244 164 96 255 -- Sandy Brown
+lightBrown = makeColorI 244 164 96 255
 
--- Function to draw labels for columns (a-h)
+
+
 drawLabel :: Int -> Int -> Picture
 drawLabel x _ = translate (fromIntegral x * 50 - 175) (-225) $ scale 0.15 0.15 $ color white $ text [toEnum (fromEnum 'a' + x)]
 
--- Function to draw labels for rows (1-8)
 drawSideLabel :: Int -> Picture
 drawSideLabel y = translate (-225) (fromIntegral y * 50 - 175) $ scale 0.15 0.15 $ color white $ text (show (9 - (8 - y)))
 
--- Function to get the piece at a given position
+
 pieceAt :: Chessboard -> (Int, Int) -> Maybe Piece
 pieceAt board (x, y) = case board !! y !! x of
   Occupied piece -> Just piece
   _ -> Nothing
 
--- Helper function to check if a square is empty
 isEmpty :: Square -> Bool
 isEmpty Empty = True
 isEmpty _ = False

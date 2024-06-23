@@ -3,15 +3,17 @@ module PlayerInput (terminalInputLoop) where
 import Data.IORef (IORef, atomicWriteIORef, readIORef)
 import System.IO (hFlush, stdout)
 import Control.Monad (forever, unless)
+
 import ChessLogic (makeMove, isValidMove, switchColor)
 import Chessboard (Chessboard, pieceAt)
 import ChessPieces
+
 
 terminalInputLoop :: IORef Chessboard -> IORef Color -> IO ()
 terminalInputLoop boardRef colorRef = forever $ do
   currentColor <- readIORef colorRef
   putStrLn $ "Enter command for " ++ show currentColor ++ " (e.g., 'e2e4' or 'pb' to print board): "
-  hFlush stdout  -- Ensure the prompt is displayed immediately
+  hFlush stdout
   command <- getLine
   board <- readIORef boardRef
   case command of
@@ -39,7 +41,7 @@ terminalInputLoop boardRef colorRef = forever $ do
                   unless isValid $
                     putStrLn "   - Invalid move according to the rules of chess."
 
--- Function to print the entire chessboard
+
 printBoard :: Chessboard -> IO ()
 printBoard board = do
   putStrLn "  -----------------"
@@ -52,12 +54,11 @@ printBoard board = do
     showRow :: [Square] -> String
     showRow row = unwords $ map showPiece row
 
--- Function to show a single piece or empty square
+
 showPiece :: Square -> String
 showPiece (Occupied piece) = showPiece' piece
 showPiece Empty = "."
 
--- Function to show a single piece
 showPiece' :: Piece -> String
 showPiece' (Pawn White) = "P"
 showPiece' (Rook White) = "R"
@@ -72,7 +73,7 @@ showPiece' (Bishop Black) = "b"
 showPiece' (Queen Black) = "q"
 showPiece' (King Black) = "k"
 
--- Function to parse a command like "e2e4" into coordinate pairs
+
 parseCommand :: String -> Maybe ((Int, Int), (Int, Int))
 parseCommand "pb" = Just ((0, 0), (7, 7)) -- Print entire board
 parseCommand command
@@ -80,8 +81,6 @@ parseCommand command
       (,) <$> parseSquare (take 2 command) <*> parseSquare (drop 2 command)
   | otherwise = Nothing
 
-
--- Function to parse a square like "e2" into a coordinate pair
 parseSquare :: String -> Maybe (Int, Int)
 parseSquare [file, rank]
   | file `elem` ['a'..'h'] && rank `elem` ['1'..'8'] = Just (fileToInt file, rankToInt rank)

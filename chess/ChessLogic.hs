@@ -3,12 +3,11 @@ module ChessLogic (makeMove, isValidMove, switchColor) where
 import Chessboard (Chessboard, pieceAt)
 import ChessPieces
 
--- Function to switch the current player
+
 switchColor :: Color -> Color
 switchColor White = Black
 switchColor Black = White
 
--- Function to make a move on the chessboard if valid
 makeMove :: Color -> (Int, Int) -> (Int, Int) -> Chessboard -> Maybe Chessboard
 makeMove color (fromX, fromY) (toX, toY) board
   | inBounds (fromX, fromY) && inBounds (toX, toY) &&
@@ -24,17 +23,16 @@ makeMove color (fromX, fromY) (toX, toY) board
       in Just clearedBoard
   | otherwise = Nothing
 
--- Check if a position is within the bounds of the chessboard
+
 inBounds :: (Int, Int) -> Bool
 inBounds (x, y) = x >= 0 && x < 8 && y >= 0 && y < 8
 
--- Function to get the color of the piece at a given position
 pieceColorAt :: Chessboard -> (Int, Int) -> Maybe Color
 pieceColorAt board (x, y) = case board !! y !! x of
   Occupied piece -> Just (pieceColor piece)
   _ -> Nothing
 
--- Function to validate if a move is valid for a given piece
+
 isValidMove :: Chessboard -> (Int, Int) -> (Int, Int) -> Bool
 isValidMove board (x1, y1) (x2, y2) = case pieceAt board (x1, y1) of
   Just piece -> 
@@ -44,7 +42,6 @@ isValidMove board (x1, y1) (x2, y2) = case pieceAt board (x1, y1) of
          Nothing -> isValidPieceMove piece (x1, y1) (x2, y2) board
   Nothing -> False
 
--- Function to check if a move is valid for a specific piece
 isValidPieceMove :: Piece -> (Int, Int) -> (Int, Int) -> Chessboard -> Bool
 isValidPieceMove (Pawn color) = isValidPawnMove color
 isValidPieceMove (Rook color) = isValidRookMove color
@@ -53,7 +50,6 @@ isValidPieceMove (Bishop color) = isValidBishopMove color
 isValidPieceMove (Queen color) = isValidQueenMove color
 isValidPieceMove (King color) = isValidKingMove color
 
--- Specific piece move validations (simplified versions)
 isValidPawnMove :: Color -> (Int, Int) -> (Int, Int) -> Chessboard -> Bool
 isValidPawnMove color (x1, y1) (x2, y2) board = 
   let direction = if color == White then 1 else -1
@@ -82,7 +78,7 @@ isValidKingMove :: Color -> (Int, Int) -> (Int, Int) -> Chessboard -> Bool
 isValidKingMove color (x1, y1) (x2, y2) _ = 
   abs (x2 - x1) <= 1 && abs (y2 - y1) <= 1
 
--- Helper functions
+
 isOccupiedByOpponent :: Color -> Chessboard -> (Int, Int) -> Bool
 isOccupiedByOpponent color board (x, y) = case board !! y !! x of
   Occupied piece -> pieceColor piece /= color
