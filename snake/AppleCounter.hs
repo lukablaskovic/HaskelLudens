@@ -12,8 +12,9 @@ boldText str = pictures [translate x y $ text str | x <- offsets, y <- offsets]
   where
     offsets = [0, 1, -1]
 
-renderAppleCounter :: Int -> Picture
-renderAppleCounter count = translate x y . scale 0.15 0.15 . color textColor . boldText $ "Jabuke: " ++ show count
+renderAppleCounter :: Picture -> Int -> Picture
+renderAppleCounter appleSprite count = translate x y $ pictures [appleIcon, translate 50 (-20) $ scale 0.2 0.2 $ color textColor . boldText $ "Jabuke: " ++ show count]
   where
-    x = -fromIntegral windowWidth / 2 + 10
-    y = fromIntegral windowHeight / 2 - 50
+    x = -fromIntegral windowWidth / 2
+    y = fromIntegral windowHeight / 2 - 35
+    appleIcon = translate 25 (-10) $ scale 1 1 appleSprite -- Adjust position and scale of the apple icon

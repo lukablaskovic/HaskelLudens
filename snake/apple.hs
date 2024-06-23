@@ -25,4 +25,4 @@ alignToGrid coord = fromIntegral (round (coord / cellSize)) * cellSize
 
 -- Render the apple
 renderApple :: Picture -> (Float, Float) -> Picture
-renderApple appleSprite (x, y) = translate x y $ scale (cellSize / 30) (cellSize / 30) appleSprite
+renderApple appleSprite (x, y) = translate x y $ scale (cellSize / 25) (cellSize / 25) appleSprite

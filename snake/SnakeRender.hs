@@ -5,7 +5,6 @@ import Graphics.Gloss.Juicy
 import GameState
 import Config
 import Data.Maybe (fromJust)
-import Debug.Trace (trace)
 
 -- Load all snake sprites from the assets folder
 loadSnakeSprites :: IO [(String, Picture)]
@@ -70,7 +69,7 @@ getHeadDirection (x1, y1) (x2, y2)
   | x1 == x2 && y1 > y2 = ("head_up", False, False)
   | x1 < x2 && y1 == y2 = ("head_left", False, False)
   | x1 > x2 && y1 == y2 = ("head_right", False, False)
-  | otherwise = trace ("Unrecognized head direction between " ++ show (x1, y1) ++ " and " ++ show (x2, y2)) ("body_horizontal", False, False)
+  | otherwise = ("body_horizontal", False, False)
 
 -- Determine the direction of the tail segment based on the previous segment
 getTailDirection :: (Float, Float) -> (Float, Float) -> (String, Bool, Bool)
@@ -79,14 +78,14 @@ getTailDirection (x1, y1) (x2, y2)
   | x1 == x2 && y1 > y2 = ("tail_down", False, False)
   | x1 < x2 && y1 == y2 = ("tail_right", False, False)
   | x1 > x2 && y1 == y2 = ("tail_left", False, False)
-  | otherwise = trace ("Unrecognized tail direction between " ++ show (x1, y1) ++ " and " ++ show (x2, y2)) ("tail_right", False, False)
+  | otherwise = ("tail_right", False, False)
 
 -- Determine the direction of the body segments based on the previous and next segments
 getBodyDirection :: (Float, Float) -> (Float, Float) -> (Float, Float) -> (String, Bool, Bool)
 getBodyDirection (x1, y1) (x2, y2) (x3, y3)
   -- Straight horizontal and vertical segments
-  | x1 == x2 && x2 == x3 = trace ("body_vertical at " ++ show (x2, y2)) ("body_vertical", False, False)
-  | y1 == y2 && y2 == y3 = trace ("body_horizontal at " ++ show (x2, y2)) ("body_horizontal", False, False)
+  | x1 == x2 && x2 == x3 = ("body_vertical", False, False)
+  | y1 == y2 && y2 == y3 = ("body_horizontal", False, False)
   -- Corners
   | x1 < x2 && y2 > y3 = ("body_topleft", False, False)
   | x3 < x2 && y2 > y1 = ("body_topleft", True, True)
@@ -97,4 +96,4 @@ getBodyDirection (x1, y1) (x2, y2) (x3, y3)
   | x1 > x2 && y2 < y3 = ("body_bottomright", False, False)
   | x3 > x2 && y2 < y1 = ("body_bottomright", True, True)
   -- Fallback to horizontal
-  | otherwise = trace ("body_horizontal fallback at " ++ show (x2, y2)) ("body_horizontal", False, False)
+  | otherwise = ("body_horizontal", False, False)

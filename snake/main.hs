@@ -55,7 +55,8 @@ handleSnakeMovement gameState
 -- Handle apple respawn based on timer
 handleAppleRespawn :: GameState -> GameState
 handleAppleRespawn gameState
-  | timer gameState >= 10 = gameState { apple = newApplePos, rng = newRng, timer = 0 }
+  | timer gameState >= 5 = gameState { apple = newApplePos, rng = newRng, timer = 0 }
   | otherwise = gameState
   where
     (newApplePos, newRng) = newApple (rng gameState)
+

@@ -24,7 +24,7 @@ render appleSprite snakeSprites gameState = pictures [gridPicture, snakePicture,
     applePicture = renderApple appleSprite (apple gameState)
 
     -- Create a picture for the apple counter
-    appleCounterPicture = renderAppleCounter (appleCount gameState)
+    appleCounterPicture = renderAppleCounter appleSprite (appleCount gameState)
     
     -- Create a picture for the grid with alternating colors and edge cells in edgeColor
     gridPicture = pictures [ translate x y $ color (if isEdge x y then edgeColor else if even (floor (x / cellSize) + floor (y / cellSize)) then color1 else color2) $ rectangleSolid cellSize cellSize
@@ -37,3 +37,4 @@ render appleSprite snakeSprites gameState = pictures [gridPicture, snakePicture,
               || x == fromIntegral windowWidth / 2 - cellSize
               || y == -fromIntegral windowHeight / 2
               || y == fromIntegral windowHeight / 2 - cellSize
+
