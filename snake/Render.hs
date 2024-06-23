@@ -3,25 +3,27 @@ module Render (render) where
 import Graphics.Gloss
 import GameState
 
+-- Define the colors for the alternating squares and the edge cells
+color1, color2, edgeColor :: Color
+color1 = makeColorI 167 215 88 255 -- #A7D758
+color2 = makeColorI 162 208 82 255 -- #A2D052
+edgeColor = makeColorI 105 58 18 255 -- #693A12
+
 -- Render the game state
 render :: GameState -> Picture
-render gameState = pictures [gridPicture, snakePicture, borderPicture]
+render gameState = pictures [gridPicture, snakePicture]
   where
     -- Create a picture for the snake
     snakePicture = color green $ pictures $ map (\(x, y) -> translate x y $ rectangleSolid cellSize cellSize) (snake gameState)
     
-    -- Create a picture for the grid
-    gridPicture = pictures $ map colorGridLine gridLines
-    colorGridLine = color (greyN 0.5)
-    gridLines = [line [(x, -fromIntegral windowHeight / 2), (x, fromIntegral windowHeight / 2)] 
-                  | x <- [-fromIntegral windowWidth / 2 + cellSize / 2, -fromIntegral windowWidth / 2 + cellSize / 2 + cellSize .. fromIntegral windowWidth / 2 - cellSize / 2]] ++ 
-                 [line [(-fromIntegral windowWidth / 2, y), (fromIntegral windowWidth / 2, y)] 
-                  | y <- [-fromIntegral windowHeight / 2 + cellSize / 2, -fromIntegral windowHeight / 2 + cellSize / 2 + cellSize .. fromIntegral windowHeight / 2 - cellSize / 2]]
-    
-    -- Create a picture for the borders
-    borderPicture = color red $ pictures 
-      [ translate (-fromIntegral windowWidth / 2 + cellSize / 2) 0 $ rectangleSolid cellSize (fromIntegral windowHeight)
-      , translate (fromIntegral windowWidth / 2 - cellSize / 2) 0 $ rectangleSolid cellSize (fromIntegral windowHeight)
-      , translate 0 (-fromIntegral windowHeight / 2 + cellSize / 2) $ rectangleSolid (fromIntegral windowWidth) cellSize
-      , translate 0 (fromIntegral windowHeight / 2 - cellSize / 2) $ rectangleSolid (fromIntegral windowWidth) cellSize
-      ]
+    -- Create a picture for the grid with alternating colors and edge cells in edgeColor
+    gridPicture = pictures [ translate x y $ color (if isEdge x y then edgeColor else if even (floor (x / cellSize) + floor (y / cellSize)) then color1 else color2) $ rectangleSolid cellSize cellSize
+                           | x <- [-fromIntegral windowWidth / 2, -fromIntegral windowWidth / 2 + cellSize .. fromIntegral windowWidth / 2 - cellSize]
+                           , y <- [-fromIntegral windowHeight / 2, -fromIntegral windowHeight / 2 + cellSize .. fromIntegral windowHeight / 2 - cellSize]
+                           ]
+
+    -- Determine if a cell is on the edge
+    isEdge x y = x == -fromIntegral windowWidth / 2
+              || x == fromIntegral windowWidth / 2 - cellSize
+              || y == -fromIntegral windowHeight / 2
+              || y == fromIntegral windowHeight / 2 - cellSize
