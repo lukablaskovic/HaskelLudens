@@ -4,7 +4,6 @@ import System.Random
 import Apple (newApple)
 import Config
 
--- Define the initial state of the game
 data GameState = GameState
   { snake :: [(Float, Float)]   -- List of coordinates for the snake
   , direction :: (Float, Float) -- Current direction of the snake
@@ -13,9 +12,10 @@ data GameState = GameState
   , timer :: Float              -- Timer to track time for apple respawn
   , appleCount :: Int           -- Count of apples eaten
   , isGameOver :: Bool          -- Game over state
+  , movementTimer :: Float      -- Timer to control snake movement speed
   } deriving Show
 
--- Initial game state
+
 initialState :: IO GameState
 initialState = do
   gen <- newStdGen
@@ -28,7 +28,9 @@ initialState = do
     , timer = 0
     , appleCount = 0
     , isGameOver = False
+    , movementTimer = 0
     }
+
 
 -- Move the snake in the current direction
 moveSnake :: GameState -> [(Float, Float)]

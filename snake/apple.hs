@@ -3,9 +3,8 @@ module Apple (renderApple, loadAppleSprite, newApple) where
 import Graphics.Gloss
 import Graphics.Gloss.Juicy
 import System.Random
-import Config -- Import the Config module
+import Config
 
--- Load the apple sprite
 loadAppleSprite :: IO Picture
 loadAppleSprite = do
   Just apple <- loadJuicy "assets/apple.png"
@@ -19,10 +18,9 @@ newApple gen = ((alignToGrid x, alignToGrid y), newGen)
     (x, gen1) = randomR (-fromIntegral windowWidth / 2 + borderOffset, fromIntegral windowWidth / 2 - borderOffset) gen
     (y, newGen) = randomR (-fromIntegral windowHeight / 2 + borderOffset, fromIntegral windowHeight / 2 - borderOffset) gen1
 
--- Align a coordinate to the center of the nearest grid cell
+
 alignToGrid :: Float -> Float
 alignToGrid coord = fromIntegral (round (coord / cellSize)) * cellSize
 
--- Render the apple
 renderApple :: Picture -> (Float, Float) -> Picture
 renderApple appleSprite (x, y) = translate x y $ scale (cellSize / 25) (cellSize / 25) appleSprite

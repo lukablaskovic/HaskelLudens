@@ -2,9 +2,9 @@ module Input (handleEvent) where
 
 import Graphics.Gloss.Interface.Pure.Game
 import GameState
-import Config -- Import the Config module
+import Config
 
--- Handle events (e.g., key presses)
+-- Handle key events to change the snake's direction
 handleEvent :: Event -> GameState -> GameState
 handleEvent (EventKey (Char 'w') Down _ _) gameState
   | direction gameState /= (0, -cellSize) = gameState { direction = (0, cellSize) }

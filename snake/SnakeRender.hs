@@ -6,8 +6,8 @@ import GameState
 import Config
 import Data.Maybe (fromJust)
 
--- Load all snake sprites from the assets folder
 loadSnakeSprites :: IO [(String, Picture)]
+
 loadSnakeSprites = do
   headLeft <- fromJust <$> loadJuicy "assets/head_left.png"
   headRight <- fromJust <$> loadJuicy "assets/head_right.png"
