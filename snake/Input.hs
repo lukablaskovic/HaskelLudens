@@ -10,4 +10,3 @@ handleEvent (EventKey (Char 'a') Down _ _) gameState = gameState { direction = (
 handleEvent (EventKey (Char 's') Down _ _) gameState = gameState { direction = (0, -cellSize) }
 handleEvent (EventKey (Char 'd') Down _ _) gameState = gameState { direction = (cellSize, 0) }
 handleEvent _ gameState = gameState
-

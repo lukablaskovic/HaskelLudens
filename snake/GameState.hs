@@ -31,7 +31,7 @@ moveSnake gameState
     (dx, dy) = direction gameState
     newHead = (\(x, y) -> (x + dx, y + dy)) (head $ snake gameState)
     newSnake = newHead : init (snake gameState)
-    checkCollision (x, y) = x < -fromIntegral windowWidth / 2
-                         || x >= fromIntegral windowWidth / 2
-                         || y < -fromIntegral windowHeight / 2
-                         || y >= fromIntegral windowHeight / 2
+    checkCollision (x, y) = x < -fromIntegral windowWidth / 2 + cellSize
+                         || x >= fromIntegral windowWidth / 2 - cellSize
+                         || y < -fromIntegral windowHeight / 2 + cellSize
+                         || y >= fromIntegral windowHeight / 2 - cellSize
