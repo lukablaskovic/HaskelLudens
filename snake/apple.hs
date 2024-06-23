@@ -11,12 +11,13 @@ loadAppleSprite = do
   Just apple <- loadJuicy "assets/apple.png"
   return apple
 
--- Generate a new random apple position
+-- Generate a new random apple position, avoiding the border area
 newApple :: StdGen -> ((Float, Float), StdGen)
 newApple gen = ((alignToGrid x, alignToGrid y), newGen)
   where
-    (x, gen1) = randomR (-fromIntegral windowWidth / 2 + cellSize / 2, fromIntegral windowWidth / 2 - cellSize / 2) gen
-    (y, newGen) = randomR (-fromIntegral windowHeight / 2 + cellSize / 2, fromIntegral windowHeight / 2 - cellSize / 2) gen1
+    borderOffset = 2 * cellSize -- Offset to avoid the border area
+    (x, gen1) = randomR (-fromIntegral windowWidth / 2 + borderOffset, fromIntegral windowWidth / 2 - borderOffset) gen
+    (y, newGen) = randomR (-fromIntegral windowHeight / 2 + borderOffset, fromIntegral windowHeight / 2 - borderOffset) gen1
 
 -- Align a coordinate to the center of the nearest grid cell
 alignToGrid :: Float -> Float

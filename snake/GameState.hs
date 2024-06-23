@@ -11,17 +11,24 @@ data GameState = GameState
   , apple :: (Float, Float)     -- Position of the apple
   , rng :: StdGen               -- Random number generator
   , timer :: Float              -- Timer to track time for apple respawn
+  , appleCount :: Int           -- Count of apples eaten
+  , isGameOver :: Bool          -- Game over state
   } deriving Show
 
 -- Initial game state
-initialState :: GameState
-initialState = GameState
-  { snake = [(0, 0), (cellSize, 0), (2 * cellSize, 0)]
-  , direction = (cellSize, 0)
-  , apple = fst $ newApple (mkStdGen 42)
-  , rng = mkStdGen 42
-  , timer = 0
-  }
+initialState :: IO GameState
+initialState = do
+  gen <- newStdGen
+  let (applePos, newGen) = newApple gen
+  return GameState
+    { snake = [(0, 0), (cellSize, 0), (2 * cellSize, 0)]
+    , direction = (cellSize, 0)
+    , apple = applePos
+    , rng = newGen
+    , timer = 0
+    , appleCount = 0
+    , isGameOver = False
+    }
 
 -- Move the snake in the current direction
 moveSnake :: GameState -> [(Float, Float)]
@@ -35,11 +42,12 @@ snakeEatsApple :: GameState -> Bool
 snakeEatsApple gameState = head (snake gameState) == apple gameState
 
 -- Check for snake collision with walls or itself
-checkCollision :: (Float, Float) -> Bool
-checkCollision (x, y) = x < -fromIntegral windowWidth / 2 + cellSize
-                     || x >= fromIntegral windowWidth / 2 - cellSize
-                     || y < -fromIntegral windowHeight / 2 + cellSize
-                     || y >= fromIntegral windowHeight / 2 - cellSize
+checkCollision :: (Float, Float) -> [(Float, Float)] -> Bool
+checkCollision (x, y) body = x < -fromIntegral windowWidth / 2 + cellSize
+                          || x >= fromIntegral windowWidth / 2 - cellSize
+                          || y < -fromIntegral windowHeight / 2 + cellSize
+                          || y >= fromIntegral windowHeight / 2 - cellSize
+                          || (x, y) `elem` body
 
 -- Grow the snake when it eats an apple
 growSnake :: [(Float, Float)] -> [(Float, Float)]
