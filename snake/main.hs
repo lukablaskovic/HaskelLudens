@@ -9,6 +9,7 @@ import Input
 import Apple
 import Config -- Import the Config module
 import AppleCounter
+import SnakeRender (loadSnakeSprites)
 import System.Random (newStdGen, mkStdGen)
 
 -- Main function to start the game
@@ -18,8 +19,9 @@ main = do
       backgroundColor = black
       framesPerSecond = 10 -- Reduced FPS to make snake movement visible
   appleSprite <- loadAppleSprite
+  snakeSprites <- loadSnakeSprites
   initialGameState <- initialState
-  play window backgroundColor framesPerSecond initialGameState (render appleSprite) handleEvent update
+  play window backgroundColor framesPerSecond initialGameState (render appleSprite snakeSprites) handleEvent update
 
 -- Update the game state
 update :: Float -> GameState -> GameState

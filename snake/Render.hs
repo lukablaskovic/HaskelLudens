@@ -4,7 +4,8 @@ import Graphics.Gloss
 import GameState
 import Apple
 import AppleCounter
-import Config -- Import the Config module
+import Config
+import SnakeRender (loadSnakeSprites, renderSnake)
 
 -- Define the colors for the alternating squares and the edge cells
 color1, color2, edgeColor :: Color
@@ -13,11 +14,11 @@ color2 = makeColorI 162 208 82 255 -- #A2D052
 edgeColor = makeColorI 105 58 18 255 -- #693A12
 
 -- Render the game state
-render :: Picture -> GameState -> Picture
-render appleSprite gameState = pictures [gridPicture, snakePicture, applePicture, appleCounterPicture]
+render :: Picture -> [(String, Picture)] -> GameState -> Picture
+render appleSprite snakeSprites gameState = pictures [gridPicture, snakePicture, applePicture, appleCounterPicture]
   where
-    -- Create a picture for the snake
-    snakePicture = color green $ pictures $ map (\(x, y) -> translate x y $ rectangleSolid cellSize cellSize) (snake gameState)
+    -- Create a picture for the snake using the new renderSnake function
+    snakePicture = renderSnake snakeSprites (snake gameState)
     
     -- Create a picture for the apple
     applePicture = renderApple appleSprite (apple gameState)
