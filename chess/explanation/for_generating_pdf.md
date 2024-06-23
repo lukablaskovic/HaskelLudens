@@ -1,5 +1,31 @@
-# Haskell šah
-**Izradio**: Alesandro Žužić
+---
+title: "Haskell šah"
+author: "Alesandro Žužić"
+date: "23.06.2024."
+header-includes:
+  - \usepackage{fvextra}
+  - \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,breakanywhere,commandchars=\\\{\}}
+  - \usepackage{geometry}
+  - \usepackage{fontspec}
+  - \geometry{margin=1in}
+  - \usepackage{listings}
+  - \lstset{
+      basicstyle=\ttfamily\small,
+      breaklines=true,
+      breakatwhitespace=true,
+      frame=single,
+      numbers=left,
+      numberstyle=\tiny,
+      stepnumber=1,
+      numbersep=5pt,
+      showspaces=false,
+      showstringspaces=false,
+      tabsize=2,
+      columns=fullflexible,
+      keepspaces=true,
+      language=Haskell
+    }
+---
 
 ## Uvod
 
@@ -9,8 +35,9 @@ Projekt je strukturiran kako bi omogućio jednostavno igranje šaha uz mogućnos
 
 Projekt je organiziran u nekoliko modula, svaki sa specifičnom funkcionalnošću koja doprinosi cjelokupnoj igri šaha. Moduli su dizajnirani tako da omogućuju jednostavno održavanje i proširenje koda. Ova struktura omogućava centralizirano upravljanje šahovskom pločom i figurama, dok se interakcija s igračem odvija putem terminala.
 
-![alt text](chess.png)
+![Haskel Šah](chess.png){ width=50% }
 
+\newpage
 ## Sadržaj
 
 1. [Uvod](#uvod)
@@ -20,12 +47,12 @@ Projekt je organiziran u nekoliko modula, svaki sa specifičnom funkcionalnošć
     - [Moduli Projekta](#moduli-projekta)
 5. [Struktura Direktorija](#struktura-direktorija)
 6. [Moduli](#moduli)
-    - [`main.hs`](#mainhs)
-    - [`ChessPieces.hs`](#chesspieceshs)
-    - [`ChessSprites.hs`](#chessspriteshs)
-    - [`Chessboard.hs`](#chessboardhs)
-    - [`ChessLogic.hs`](#chesslogichs)
-    - [`PlayerInput.hs`](#playerinpuths)
+    - [Main](#main)
+    - [ChessPieces](#chesspieces)
+    - [ChessSprites](#chesssprites)
+    - [Chessboard](#chessboard)
+    - [ChessLogic](#chesslogic)
+    - [PlayerInput](#playerinput)
 7. [Funkcijsko programiranje u razvoju šahovske igre](#funkcijsko-programiranje-u-razvoju-šahovske-igre)
 8. [Korišteni resursi](#korišteni-resursi)
 
@@ -113,38 +140,40 @@ Projekt je organiziran u nekoliko modula, svaki sa specifičnom funkcionalnošć
      - Ažurira stanje ploče nakon valjanog poteza.
      - Upravlja izmjenom boje igrača.
 
+\newpage
 ### Struktura Direktorija
 
 ```
 .
-├── Main.hs
-├── Chessboard.hs
-├── ChessSprites.hs
-├── PlayerInput.hs
-├── ChessPieces.hs
-├── ChessLogic.hs
-└── sprites
-    ├── white_king.bmp
-    ├── white_queen.bmp
-    ├── white_rook.bmp
-    ├── white_bishop.bmp
-    ├── white_knight.bmp
-    ├── white_pawn.bmp
-    ├── black_king.bmp
-    ├── black_queen.bmp
-    ├── black_rook.bmp
-    ├── black_bishop.bmp
-    ├── black_knight.bmp
-    └── black_pawn.bmp
+|-- Main.hs
+|-- Chessboard.hs
+|-- ChessSprites.hs
+|-- PlayerInput.hs
+|-- ChessPieces.hs
+|-- ChessLogic.hs
+|__ sprites
+    |-- white_king.bmp
+    |-- white_queen.bmp
+    |-- white_rook.bmp
+    |-- white_bishop.bmp
+    |-- white_knight.bmp
+    |-- white_pawn.bmp
+    |-- black_king.bmp
+    |-- black_queen.bmp
+    |-- black_rook.bmp
+    |-- black_bishop.bmp
+    |-- black_knight.bmp
+    |__ black_pawn.bmp
 ```
 
 Direktorij `sprites` sadrži BMP slike šahovskih figura koje se koriste za grafički prikaz ploče u igri.
 
 Svaki modul ima specifičnu ulogu i zajedno omogućavaju funkcionalnost šahovske igre. Ova organizacija omogućava jednostavnije upravljanje i proširenje koda, čineći projekt preglednim i modularnim.
 
+\newpage
 # Moduli
 
-## `main.hs`
+## Main
 
 Ova datoteka implementira jednostavnu šahovsku igru koristeći Haskell i Gloss biblioteku za grafiku. Program uključuje:
 
@@ -402,17 +431,16 @@ U `main.hs` kodu, Gloss biblioteka se koristi za stvaranje prozora u kojem će s
 
 ### Primjer odvojenih slika i kombinirane slike:
 
-<div style="display: flex; align-items: flex-end;">
-  <img src="image-seperated.png" alt="Odvojene slike" style="margin: 16px;" width="25%">
-  <img src="image-combined.png" alt="Kombinirana slika" style="margin: 16px;"   width="25%">
-</div>
+![alt text](image-seperated.png){ width=50% }
+![alt text](image-combined.png){ width=50% }
 
 - **Odvojene slika**: Prikazuje pozadinu, labele, šahovsku ploču, figure kao zasebne slika.
 - **Kombinirana slika**: Prikazuje kombinirane slika u jednu sliku koristeći Gloss biblioteku.
 
 Korištenjem funkcije `pictures`, pojedinačne slike (kao što su labele, ploča i figure) mogu se kombinirati u jednu sliku koja se zatim prikazuje korisniku. Ovo omogućava dinamičko i interaktivno ažuriranje prikaza na temelju poteza igrača.
 
-## `ChessPieces.hs`
+\newpage
+## ChessPieces
 
 Modul `ChessPieces.hs` u projektu za šahovsku igru definira osnovne tipove podataka i funkcije povezane sa šahovskim figurama i njihovim karakteristikama. Konkretno, modul pruža:
 
@@ -496,21 +524,22 @@ pieceColor (Pawn color)   = color
 
 Modul `ChessPieces.hs` služi kao temelj za definiranje osnovnih elemenata igre šaha. Tipovi podataka i funkcije definirani u ovom modulu koriste se u drugim dijelovima programa za rad s figurama i poljima na ploči. Na primjer, informacije o figurama i njihovim bojama koriste se za provjeru valjanosti poteza, crtanje ploče i figura te logiku igre.
 
-## `ChessSprites.hs`
+\newpage
+## ChessSprites
 
-![alt text](white_king.png)
-![alt text](white_queen.png)
-![alt text](white_rook.png)
-![alt text](white_bishop.png)
-![alt text](white_knight.png)
-![alt text](white_pawn.png)
+![](white_king.png){ width=5% }
+![](white_queen.png){ width=5% }
+![](white_rook.png){ width=5% }
+![](white_bishop.png){ width=5% }
+![](white_knight.png){ width=5% }
+![](white_pawn.png){ width=5% }
 
-![alt text](black_king.png)
-![alt text](black_queen.png)
-![alt text](black_rook.png)
-![alt text](black_bishop.png)
-![alt text](black_knight.png)
-![alt text](black_pawn.png)
+![](black_king.png){ width=5% }
+![](black_queen.png){ width=5% }
+![](black_rook.png){ width=5% }
+![](black_bishop.png){ width=5% }
+![](black_knight.png){ width=5% }
+![](black_pawn.png){ width=5% }
 
 Modul `ChessSprites.hs` u projektu za šahovsku igru odgovoran je za grafički prikaz šahovskih figura koristeći Gloss biblioteku. Konkretno, modul pruža funkcionalnosti za:
 
@@ -607,15 +636,16 @@ drawChessboardSprites board = do
      - `| (y, row) <- zip [0..] board`: Iteracija kroz redove ploče.
    - `return $ pictures $ concat spriteBoard`: Vraća kombiniranu sliku ploče i figura koristeći `pictures` i `concat` za spajanje svih slika u jednu.
 
-![alt text](pieces.png)
+![](pieces.png){ width=35% }
 
 ### Namjena Modula
 
 Modul `ChessSprites.hs` služi za stvaranje vizualnog prikaza šahovske igre. Njegove funkcionalnosti omogućavaju da se šahovske figure pravilno prikazuju na ploči i ažuriraju prema potezima igrača. Korištenjem ovog modula, grafički prikaz igre postaje dinamičan i interaktivan, omogućavajući igračima da jasno vide stanje igre u svakom trenutku.
 
-## `Chessboard.hs`
+\newpage
+## Chessboard
 
-![alt text](board.png)
+![](board.png){ width=35% }
 
 Modul `Chessboard.hs` u projektu za šahovsku igru odgovoran je za definiciju i manipulaciju šahovske ploče. Konkretno, modul pruža funkcionalnosti za:
 
@@ -735,12 +765,13 @@ isEmpty _ = False  -- U suprotnom, vraća False
 7. **Boje Polja**:
    - `darkBrown` i `lightBrown`: Definiraju prilagođene boje za kvadrate šahovske ploče.
 
-   - ![alt text](tile_dark.png) ![alt text](tile_light.png)
+        ![](tile_dark.png){ width=5% } ![](tile_light.png){ width=5% }
 
 8. **Crtanje Labela**:
    - `drawLabel :: Int -> Int -> Picture`: Funkcija koja crta oznake stupaca (a-h).
    - `drawSideLabel :: Int -> Picture`: Funkcija koja crta oznake redova (1-8).
-   - ![alt text](labels.png)
+    
+        ![](labels.png){ width=50% }
 
 9. **Dohvaćanje Figure na Poziciji**:
    - `pieceAt :: Chessboard -> (Int, Int) -> Maybe Piece`: Funkcija koja dohvaća figuru na danoj poziciji na ploči.
@@ -759,7 +790,8 @@ Modul `Chessboard.hs` služi kao temelj za sve operacije vezane uz šahovsku plo
 
 Ovaj modul je ključan za logiku igre, jer omogućava centralizirano upravljanje šahovskom pločom i interakcijama figura na njoj.
 
-## `ChessLogic.hs`
+\newpage
+## ChessLogic
 
 Modul `ChessLogic.hs` u projektu za šahovsku igru odgovoran je za implementaciju logike igre. Konkretno, modul pruža funkcionalnosti za:
 
@@ -938,40 +970,41 @@ pathIsClear board (x1, y1) (x2, y2) =
    - **`isValidPawnMove`**:
      - Provjerava valjanost poteza pješaka, uzimajući u obzir smjer kretanja (naprijed za bijele, nazad za crne), početni red i mogućnost hvatanja figura protivnika dijagonalno.
      - Ako je pješak u početnom redu, može se pomaknuti za dva polja unaprijed, pod uvjetom da su oba polja prazna
-    <br>![alt text](pawn_move_1.png) 
+    
+        ![](pawn_move_1.png){ width=5% }
      - Hvatanje protivničke figure moguće je samo dijagonalnim potezom u jednom polju unaprijed.
-    <br>![alt text](pawn_move_2.png)
+    
+        ![](pawn_move_2.png){ width=25% }
 
    - **`isValidRookMove`**:
      - Provjerava valjanost poteza topa, koji se može kretati horizontalno ili vertikalno bilo kojim brojem polja, pod uvjetom da su sva polja na putu prazna.
      - Ako je putanja slobodna, potez je valjan.
-    <br>![alt text](rook_move.png)
+    
+        ![](rook_move.png){ width=35% }
 
    - **`isValidKnightMove`**:
      - Provjerava valjanost poteza konja, koji se može kretati u obliku slova "L" (dva polja u jednom smjeru, zatim jedno polje okomito, ili jedno polje u jednom smjeru, zatim dva polja okomito).
      - Konj može preskakati druge figure na ploči.
-    <br>![alt text](knight_move.png)
+    
+        ![](knight_move.png){ width=25% }
 
    - **`isValidBishopMove`**:
      - Provjerava valjanost poteza lovca, koji se može kretati dijagonalno bilo kojim brojem polja, pod uvjetom da su sva polja na putu prazna.
      - Ako je putanja slobodna, potez je valjan.
-    <br>![alt text](bishop_move.png)
+    
+        ![](bishop_move.png){ width=35% }
 
    - **`isValidQueenMove`**:
      - Provjerava valjanost poteza kraljice, koja se može kretati kao top (horizontalno ili vertikalno) ili kao lovac (dijagonalno).
      - Potez je valjan ako je slobodna putanja kao za top ili lovca.
-    <div style="display: flex; align-items: center;">
-      <img src="rook_move.png" alt="Odvojene slike" style="margin: 0 8 16 8;" width="25%">
-      <b style="font-size: 64px; margin: 0 0 16 0;">+</b>
-      <img src="bishop_move.png" alt="Kombinirana slika" style="margin: 0 8 16 8;"   width="25%">
-      <b style="font-size: 64px; margin: 0 0 16 0;">=</b>
-      <img src="queen_move.png" alt="Kombinirana slika" style="margin: 0 8 16 8;"   width="25%">
-    </div>
+
+        ![](rook_move.png){ width=27% }![](plus.png){ width=3% }![](bishop_move.png){ width=27% }![](equal.png){ width=3% }![](queen_move.png){ width=27% }
 
    - **`isValidKingMove`**:
      - Provjerava valjanost poteza kralja, koji se može kretati jedno polje u bilo kojem smjeru (horizontalno, vertikalno ili dijagonalno).
      - Provjerava se je li potez unutar jednog polja.
-    <br>![alt text](king_move.png)
+    
+        ![](king_move.png){ width=25% }
 
 10. **Pomoćne funkcije**:
     - **`isOccupiedByOpponent`**:
@@ -992,12 +1025,14 @@ Modul `ChessLogic.hs` služi kao jezgra logike igre šaha. Njegove funkcionalnos
 
 Ovaj modul je ključan za osiguravanje pravilnog odvijanja igre i za implementaciju osnovnih pravila šaha. Bez njega, igra ne bi mogla pravilno funkcionirati niti bi se mogla osigurati ispravnost poteza.
 
-## `PlayerInput.hs`
+\newpage
 
-<div>
-  <img src="terminal_inputs.png" alt="Odvojene slike" width="75%">
-  <img src="terminal_print_board.png" alt="Kombinirana slika" width="75%">
-</div>
+\newpage
+## PlayerInput
+
+![](terminal_inputs.png){ width=75% }
+
+![](terminal_print_board.png){ width=75% }
 
 terminal_inputs
 
@@ -1251,6 +1286,7 @@ Ovaj modul je ključan za omogućavanje dinamične interakcije između igrača i
     hFlush stdout
     ```
 
+\newpage
 ## Funkcijsko programiranje u razvoju šahovske igre
 
 ### Isticanje upotrebe nemjenjivih struktura podataka i čistih funkcija u razvoju igre
@@ -1316,6 +1352,7 @@ Ovaj modul je ključan za omogućavanje dinamične interakcije između igrača i
   - Testiranje čistih funkcija je jednostavnije jer su determinističke.
   - Ovo povećava pouzdanost i omogućava jednostavniju detekciju i ispravku grešaka.
 
+\newpage
 ### Korišteni resursi
 
 U razvoju ovog projekta korišteni su brojni resursi koji su značajno doprinijeli njegovoj realizaciji. Slijedi detaljan pregled korištenih resursa:
