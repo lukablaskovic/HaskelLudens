@@ -2,6 +2,7 @@ module Input (handleEvent) where
 
 import Graphics.Gloss.Interface.Pure.Game
 import GameState
+import Config -- Import the Config module
 
 -- Handle events (e.g., key presses)
 handleEvent :: Event -> GameState -> GameState

@@ -1,18 +1,15 @@
 module GameState where
 
--- Define the window dimensions
-windowWidth, windowHeight :: Int
-windowWidth = 800
-windowHeight = 600
-
--- Define the size of each grid cell
-cellSize :: Float
-cellSize = 20
+import System.Random
+import Apple (newApple) -- Import only newApple from Apple
+import Config -- Import the Config module
 
 -- Define the initial state of the game
 data GameState = GameState
-  { snake :: [(Float, Float)]  -- List of coordinates for the snake
+  { snake :: [(Float, Float)]   -- List of coordinates for the snake
   , direction :: (Float, Float) -- Current direction of the snake
+  , apple :: (Float, Float)     -- Position of the apple
+  , rng :: StdGen               -- Random number generator
   } deriving Show
 
 -- Initial game state
@@ -20,6 +17,8 @@ initialState :: GameState
 initialState = GameState
   { snake = [(0, 0), (cellSize, 0), (2 * cellSize, 0)]
   , direction = (cellSize, 0)
+  , apple = fst $ newApple (mkStdGen 42)
+  , rng = mkStdGen 42
   }
 
 -- Move the snake in the current direction
