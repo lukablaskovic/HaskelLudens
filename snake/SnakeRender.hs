@@ -7,7 +7,6 @@ import Config
 import Data.Maybe (fromJust)
 
 loadSnakeSprites :: IO [(String, Picture)]
-
 loadSnakeSprites = do
   headLeft <- fromJust <$> loadJuicy "assets/head_left.png"
   headRight <- fromJust <$> loadJuicy "assets/head_right.png"
@@ -16,10 +15,6 @@ loadSnakeSprites = do
   
   bodyHorizontal <- fromJust <$> loadJuicy "assets/body_horizontal.png"
   bodyVertical <- fromJust <$> loadJuicy "assets/body_vertical.png"
-  bodyTopRight <- fromJust <$> loadJuicy "assets/body_topright.png"
-  bodyTopLeft <- fromJust <$> loadJuicy "assets/body_topleft.png"
-  bodyBottomRight <- fromJust <$> loadJuicy "assets/body_bottomright.png"
-  bodyBottomLeft <- fromJust <$> loadJuicy "assets/body_bottomleft.png"
   
   tailUp <- fromJust <$> loadJuicy "assets/tail_up.png"
   tailDown <- fromJust <$> loadJuicy "assets/tail_down.png"
@@ -32,10 +27,6 @@ loadSnakeSprites = do
          , ("head_down", headDown)
          , ("body_horizontal", bodyHorizontal)
          , ("body_vertical", bodyVertical)
-         , ("body_topright", bodyTopRight)
-         , ("body_topleft", bodyTopLeft)
-         , ("body_bottomright", bodyBottomRight)
-         , ("body_bottomleft", bodyBottomLeft)
          , ("tail_up", tailUp)
          , ("tail_down", tailDown)
          , ("tail_left", tailLeft)
@@ -86,14 +77,4 @@ getBodyDirection (x1, y1) (x2, y2) (x3, y3)
   -- Straight horizontal and vertical segments
   | x1 == x2 && x2 == x3 = ("body_vertical", False, False)
   | y1 == y2 && y2 == y3 = ("body_horizontal", False, False)
-  -- Corners
-  | x1 < x2 && y2 > y3 = ("body_topleft", False, False)
-  | x3 < x2 && y2 > y1 = ("body_topleft", True, True)
-  | x1 < x2 && y2 < y3 = ("body_bottomleft", False, False)
-  | x3 < x2 && y2 < y1 = ("body_bottomleft", True, True)
-  | x1 > x2 && y2 > y3 = ("body_topright", False, False)
-  | x3 > x2 && y2 > y1 = ("body_topright", True, True)
-  | x1 > x2 && y2 < y3 = ("body_bottomright", False, False)
-  | x3 > x2 && y2 < y1 = ("body_bottomright", True, True)
-  -- Fallback to horizontal
   | otherwise = ("body_horizontal", False, False)
