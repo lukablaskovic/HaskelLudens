@@ -47,3 +47,4 @@ render appleSprite snakeSprites gameState = pictures [gridPicture, snakePicture,
     
     -- Determine if the edge cell should use edgeColor1 or edgeColor2
     isEdgeColor1 x y = even (floor (x / cellSize) + floor (y / cellSize))
+

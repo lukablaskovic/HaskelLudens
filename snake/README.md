@@ -2,13 +2,68 @@
 
 Projekt Haskell Snake predstavlja implementaciju popularne igre Snake u programskom jeziku Haskell. Vektorska grafika je relizirana pomoću biblioteke Gloss, dok je igra implementirana korišćenjem funkcionalnih programskih konstrukcija jezika Haskell.
 
-Interakcija između igrača i igre se vrši pomoću tipkovnice (tipke tD) za kretanje zmije. Cilj igre je sakupiti što više jabuka, a igrač gubi kada zmija udari u zid ili u samu sebe.
+Interakcija između igrača i igre se vrši pomoću tipkovnice (tipke W, A, S, D) za kretanje zmije. Cilj igre je sakupiti što više jabuka, a igrač gubi kada zmija udari u zid ili u samu sebe.
 
-Implementacija je podijeljena u nekoliko modula koji upravljaju stanjem igre, iscrtavanjem grafičkih elemenata, obradom korisničkih akcija i logikom igre.
+Implementacija je podijeljena u nekoliko modula (njih 8 ukupno) koji upravljaju stanjem igre, iscrtavanjem grafičkih elemenata, obradom korisničkih akcija i logikom igre.
+
+<hr>
+
+**Projekt izradio**: Luka Blašković
+
+**Ustanova**: Sveučilište Jurja Dobrile u Puli, Fakultet informatike
+
+**Kolegij**: Funkcijsko programiranje, ak. god. 2023/2024, **nositelj**: doc. dr. sc. Siniša Miličić
+
+[Source kod projekta ovdje](https://github.com/lukablaskovic/HaskelLudens/tree/main/snake)
 
 ![Haskell Snake](./images/snake-ui.png)
 
 > Screenshot igre Haskell Snake
+
+## Sadržaj
+
+- [Haskell Snake 🐍](#haskell-snake-)
+  - [Sadržaj](#sadržaj)
+- [Kako pokrenuti igru](#kako-pokrenuti-igru)
+- [Moduli 🛠️](#moduli-️)
+  - [\[1\] Main modul 1/2](#1-main-modul-12)
+    - [`main` funkcija 🎮](#main-funkcija-)
+  - [\[2\] GameState modul](#2-gamestate-modul)
+    - [`GameState` tip podatka 🛑](#gamestate-tip-podatka-)
+    - [`initialState` funkcija 🆕](#initialstate-funkcija-)
+    - [`moveSnake` funkcija 🐍⬆️➡️⬇️⬅️](#movesnake-funkcija-️️️️)
+    - [`snakeEatsApple` funkcija 🐍🍎](#snakeeatsapple-funkcija-)
+    - [`checkCollision` funkcija 🐍🧱](#checkcollision-funkcija-)
+    - [`growSnake` funkcija 🐍🐍🐍](#growsnake-funkcija-)
+  - [\[3\] Main modul 2/2 (nastavak)](#3-main-modul-22-nastavak)
+    - [`update` funkcija 🔄🔄🔄](#update-funkcija-)
+    - [`resetGame` funkcija 🔙](#resetgame-funkcija-)
+    - [`handleSnakeMovement` i `updateGameStateAfterMovement` funkcije za kretanje🐍🔄](#handlesnakemovement-i-updategamestateaftermovement-funkcije-za-kretanje)
+    - [`handleAppleEaten` i `handleAppleRespawn` funkcije 🍎🍏🍎](#handleappleeaten-i-handleapplerespawn-funkcije-)
+  - [\[4\] Apple modul](#4-apple-modul)
+    - [`loadAppleSprite` funkcija 🍎🖼️](#loadapplesprite-funkcija-️)
+    - [`newApple` funkcija 🆕🍎](#newapple-funkcija-)
+    - [`renderApple` funkcija 📽️🍎](#renderapple-funkcija-️)
+  - [\[5\] Input modul](#5-input-modul)
+    - [`handleEvent` funkcija ⌨️](#handleevent-funkcija-️)
+  - [\[6\] AppleCounter modul](#6-applecounter-modul)
+    - [Definiranje boje teksta i pomoćna `boldText` funkcija 🎨](#definiranje-boje-teksta-i-pomoćna-boldtext-funkcija-)
+    - [`renderAppleCounter` funkcija 📽️🍎🔢](#renderapplecounter-funkcija-️)
+  - [\[7\] SnakeRender modul](#7-snakerender-modul)
+    - [`loadSnakeSprites` funkcija 🐍🖼️](#loadsnakesprites-funkcija-️)
+    - [`directions` i njene pomoćne funkcije 🐍⬆️➡️⬇️⬅️](#directions-i-njene-pomoćne-funkcije-️️️️)
+    - [`renderSnake` funkcija 🐍📽️](#rendersnake-funkcija-️)
+  - [\[8\] Render modul](#8-render-modul)
+    - [`render` funkcija 📽️📺](#render-funkcija-️)
+
+# Kako pokrenuti igru
+
+1. Instalacija Haskell-a, može se preuzeti sa [službene stranice](https://www.haskell.org/downloads/), preporuka je instalirati GHC (Glasgow Haskell Compiler)
+2. Instalacija `Stack` alata za upravljanje Haskell bibliotekama i ukupnim projektom, upute su na sljedećem [linku](https://docs.haskellstack.org/en/stable/)
+3. Jednom kad su alati instalirani, otvorite terminal i u direktoriju projekta `snake` pokrenite sljedeće naredbe:
+   - `stack build` - build cijelog projekta
+   - `stack ghc -- -o snake main.hs` - kompilacija `Main.hs` modula
+   - `stack.exe` - pokretanje igre
 
 # Moduli 🛠️
 
@@ -103,7 +158,7 @@ data GameState = GameState
   } deriving Show -- Kako bi se GameState mogao ispisati u konzoli
 ```
 
-### `initialState` funkcija
+### `initialState` funkcija 🆕
 
 > Funkcija koja vraća početno stanje igre (GameState)
 
@@ -400,7 +455,7 @@ updateGameStateAfterMovement gameState
     newSnake = GS.moveSnake gameState
 ```
 
-![alt text](images/handle-snake-movement.png)
+![alt text](images/handleSnakeMovement.png)
 
 > Ilustracija funkcija za kretanje zmije
 
@@ -763,7 +818,7 @@ directions snake = headDirection : bodyDirections ++ [tailDirection]
 - `bodyDirections` određujemo pomoću funkcije `zipWith3 getBodyDirection`:
 
   - `init (tail snake)` - uzima sve segmente osim prvog i posljednjeg (glava i rep)
-  - `tail (init snake)` - uzima sve segmente zmije osim prvog (glava) i zadnjeg (rep), ali pomaknuto za jedno mjesto unaprijed
+  - `tail (init snake)` - uzima sve segmente zmije osim prvog i posljednjeg, ali pomaknuto za jedno mjesto unaprijed
   - `drop 2 snake` - uzima sve segmente zmije osim prva dva (glava i prvog segmenta tijela)
 
   - funkcija `zipWith3` primjenjuje `getBodyDirection` na svaku trojku koordinata (prethodni, trenutni i sljedeći segment) i vraća listu smjerova tijela.
@@ -798,7 +853,7 @@ getBodyDirection (x1, y1) (x2, y2) (x3, y3)
   | otherwise = ("body_horizontal", False, False)
 ```
 
-### renderSnake funkcija 🐍📽️
+### `renderSnake` funkcija 🐍📽️
 
 > Funkcija primjenjuje odgovarajući sprite za svaki segment zmije
 
@@ -848,7 +903,7 @@ renderSnake sprites snake = pictures $ zipWith renderSegment snake (directions s
 
 ## [8] Render modul
 
-Posljednji modul `render` sadrži istoimenu funkciju za iscrtavanje stanja igre na ekranu.
+Posljednji modul `render` sadrži istoimenu funkciju za iscrtavanje stanja igre (`GameState`) na ekranu.
 
 Na početku su definirane **boje**. Boje `color1` i `color2` su za crtanje mreže ćelija (grid), dok su boje `edgeColor1` i `edgeColor2` za rubne ćelije mreže.
 
@@ -938,7 +993,7 @@ isEdge :: Float -> Float -> Bool
 
 **7. Funkcija `isEdgeColor1`**
 
-Funkcija `isEdgeColor1` određuje treba li rubna ćelija koristiti `edgeColor1` ili `edgeColor2`. Koristi isti kriterij pariteta kao i za unutarnje ćelije (`even (floor (x / cellSize) + floor (y / cellSize))`).
+Funkcija `isEdgeColor1` određuje treba li rubna ćelija koristiti `edgeColor1` ili `edgeColor2` (boje idu naizmjenično iz estetskih razloga). Koristi isti kriterij pariteta kao i za unutarnje ćelije (`even (floor (x / cellSize) + floor (y / cellSize))`).
 
 Cijeli isječak koda:
 
@@ -976,3 +1031,7 @@ render appleSprite snakeSprites gameState = pictures [gridPicture, snakePicture,
     -- Determine if the edge cell should use edgeColor1 or edgeColor2
     isEdgeColor1 x y = even (floor (x / cellSize) + floor (y / cellSize))
 ```
+
+![alt text](render.png)
+
+> Prikaz funkcije `render`, njenih ulaznih parametara i povratne `pictures` vrijednosti
