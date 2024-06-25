@@ -19,3 +19,7 @@ This repository is a showcase of three different games developed in Haskell as a
 - Author: David Šajina
 
 <img src="https://github.com/lukablaskovic/HaskelLudens/blob/main/connect4/explanation/2ndTurn.png?raw=true" width="300">
+
+### Poster
+
+![alt text](poster.jpg)

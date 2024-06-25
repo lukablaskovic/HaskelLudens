@@ -293,7 +293,7 @@ checkCollision (x, y) body = x < -fromIntegral windowWidth / 2 + cellSize
 
 ### `growSnake` funkcija 🐍🐍🐍
 
-> Funkcija koja povećava tijelo zmije za jedan segment svaki put kada zmija pojede jabuku
+> Rekurzivna funkcija koja povećava tijelo zmije za jedan segment svaki put kada zmija pojede jabuku
 
 - ulazni parametar je lista koordinata (tuplova) `[(Float, Float)]` za svaki segment trenutne zmije
 - povratna vrijednost je lista koordinata (tuplova) `[(Float, Float)]` za svaki segment zmije nakon povećanja
@@ -317,6 +317,8 @@ Ako je zmija trenutno definirana kao `[(2, 2), (1, 2), (0, 2)]`, poziv `growSnak
 ```haskell
 growSnake [] = []
 ```
+
+Funkcija koristi **rekurziju** kroz uvjetovanje: ako je lista prazna, vraća praznu listu: inače, duplicira prvi segment (glavu) kako bi zmija "narasla".
 
 Cijeli isječak koda:
 
