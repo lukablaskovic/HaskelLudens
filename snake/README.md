@@ -14,7 +14,7 @@ Implementacija je podijeljena u nekoliko modula (njih 8 ukupno) koji upravljaju 
 
 **Kolegij**: Funkcijsko programiranje, ak. god. 2023/2024, **nositelj**: doc. dr. sc. Siniša Miličić
 
-[Source kod projekta ovdje](https://github.com/lukablaskovic/HaskelLudens/tree/main/snake)
+[Source kod projekta ovdje](https://raw.githubusercontent.com/lukablaskovic/HaskelLudens/main/snake/images/snake-ui.png)
 
 ![Haskell Snake](./images/snake-ui.png)
 
@@ -359,7 +359,7 @@ update seconds gameState
   | otherwise = handleAppleRespawn . handleSnakeMovement seconds $ gameState { timer = timer gameState + seconds }
 ```
 
-![alt text](images/update-logic.png)
+![alt text](https://raw.githubusercontent.com/lukablaskovic/HaskelLudens/main/snake/images/update-logic.png)
 
 ### `resetGame` funkcija 🔙
 
@@ -455,7 +455,7 @@ updateGameStateAfterMovement gameState
     newSnake = GS.moveSnake gameState
 ```
 
-![alt text](images/handleSnakeMovement.png)
+![alt text](https://raw.githubusercontent.com/lukablaskovic/HaskelLudens/main/snake/images/handleSnakeMovement.png)
 
 > Ilustracija funkcija za kretanje zmije
 
@@ -516,7 +516,7 @@ handleAppleRespawn gameState
     (newApplePos, newRng) = newApple (rng gameState)
 ```
 
-![alt text](<images/main module.png>)
+![alt text](https://raw.githubusercontent.com/lukablaskovic/HaskelLudens/main/snake/images/main%20module.png)
 
 > Ilustracija svih funkcija u `Main` modulu
 
@@ -761,7 +761,7 @@ loadSnakeSprites = do
          ]
 ```
 
-![alt text](images/snake_sprites.png)
+![alt text](https://raw.githubusercontent.com/lukablaskovic/HaskelLudens/main/snake/images/snake_sprites.png)
 
 > Slike sprite-ova za zmiju, [source](https://opengameart.org/content/snake-game-assets)
 
@@ -1032,6 +1032,6 @@ render appleSprite snakeSprites gameState = pictures [gridPicture, snakePicture,
     isEdgeColor1 x y = even (floor (x / cellSize) + floor (y / cellSize))
 ```
 
-![alt text](render.png)
+![alt text](https://raw.githubusercontent.com/lukablaskovic/HaskelLudens/main/snake/images/render.png)
 
 > Prikaz funkcije `render`, njenih ulaznih parametara i povratne `pictures` vrijednosti
