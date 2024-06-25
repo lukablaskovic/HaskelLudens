@@ -1,6 +1,6 @@
 # Haskell Snake 🐍
 
-Projekt Haskell Snake predstavlja implementaciju popularne igre Snake u programskom jeziku Haskell. Vektorska grafika je relizirana pomoću biblioteke Gloss, dok je igra implementirana korišćenjem funkcionalnih programskih konstrukcija jezika Haskell.
+Projekt Haskell Snake predstavlja implementaciju popularne igre Snake u programskom jeziku Haskell. Vektorska grafika je relizirana pomoću biblioteke Gloss, dok je igra implementirana funkcionalnih programskih konstrukcija jezika Haskell (uz nekoliko monada :).
 
 Interakcija između igrača i igre se vrši pomoću tipkovnice (tipke W, A, S, D) za kretanje zmije. Cilj igre je sakupiti što više jabuka, a igrač gubi kada zmija udari u zid ili u samu sebe.
 
@@ -12,7 +12,7 @@ Implementacija je podijeljena u nekoliko modula (njih 8 ukupno) koji upravljaju 
 
 **Ustanova**: Sveučilište Jurja Dobrile u Puli, Fakultet informatike
 
-**Kolegij**: Funkcijsko programiranje, ak. god. 2023/2024, **nositelj**: doc. dr. sc. Siniša Miličić
+**Kolegij**: Funkcijsko programiranje, ak. god. 2023/2024, **nositelj**: [doc. dr. sc. Siniša Miličić](https://fipu.unipu.hr/fipu/sinisa.milicic)
 
 [Source kod projekta ovdje](https://github.com/lukablaskovic/HaskelLudens/tree/main/snake)
 
