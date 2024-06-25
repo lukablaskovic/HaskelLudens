@@ -1,4 +1,5 @@
 # Haskell šah
+
 **Izradio**: Alesandro Žužić
 
 ## Uvod
@@ -9,7 +10,7 @@ Projekt je strukturiran kako bi omogućio jednostavno igranje šaha uz mogućnos
 
 Projekt je organiziran u nekoliko modula, svaki sa specifičnom funkcionalnošću koja doprinosi cjelokupnoj igri šaha. Moduli su dizajnirani tako da omogućuju jednostavno održavanje i proširenje koda. Ova struktura omogućava centralizirano upravljanje šahovskom pločom i figurama, dok se interakcija s igračem odvija putem terminala.
 
-![alt text](chess.png)
+![alt text](https://raw.githubusercontent.com/lukablaskovic/HaskelLudens/main/chess/explanation/chess.png)
 
 ## Sadržaj
 
@@ -17,29 +18,32 @@ Projekt je organiziran u nekoliko modula, svaki sa specifičnom funkcionalnošć
 2. [Ključne Značajke](#ključne-značajke)
 3. [Ograničenja Projekta](#ograničenja-projekta)
 4. [Organizacija Projekta](#organizacija-projekta)
-    - [Moduli Projekta](#moduli-projekta)
+   - [Moduli Projekta](#moduli-projekta)
 5. [Struktura Direktorija](#struktura-direktorija)
 6. [Moduli](#moduli)
-    - [`main.hs`](#mainhs)
-    - [`ChessPieces.hs`](#chesspieceshs)
-    - [`ChessSprites.hs`](#chessspriteshs)
-    - [`Chessboard.hs`](#chessboardhs)
-    - [`ChessLogic.hs`](#chesslogichs)
-    - [`PlayerInput.hs`](#playerinpuths)
+   - [`main.hs`](#mainhs)
+   - [`ChessPieces.hs`](#chesspieceshs)
+   - [`ChessSprites.hs`](#chessspriteshs)
+   - [`Chessboard.hs`](#chessboardhs)
+   - [`ChessLogic.hs`](#chesslogichs)
+   - [`PlayerInput.hs`](#playerinpuths)
 7. [Funkcijsko programiranje u razvoju šahovske igre](#funkcijsko-programiranje-u-razvoju-šahovske-igre)
 8. [Korišteni resursi](#korišteni-resursi)
 
 ### Ključne značajke:
 
 1. **Grafički Prikaz**:
+
    - Koristi Gloss biblioteku za crtanje šahovske ploče i figura.
    - Ploča i figure se kombiniraju i prikazuju u prozoru aplikacije.
 
 2. **Interakcija Igrača**:
+
    - Igrači mogu unositi poteze putem terminala.
    - Unos se obrađuje u zasebnoj dretvi kako bi se omogućilo paralelno izvršavanje grafičke simulacije i obrade unosa.
 
 3. **Simulacija**:
+
    - Kontinuirano ažurira prikaz šahovske ploče na temelju poteza igrača.
    - Koristi `simulateIO` iz Gloss biblioteke za upravljanje simulacijom.
 
@@ -52,21 +56,27 @@ Projekt je organiziran u nekoliko modula, svaki sa specifičnom funkcionalnošć
 Iako projekt pruža osnovnu funkcionalnost igranja šaha, postoje određena ograničenja i funkcionalnosti koje nisu implementirane:
 
 1. **Nedostatak Napredne Validacije Pravila**:
+
    - Projekt ne provjerava složena pravila šaha poput rošade, en passant hvatanja, i promocije pijuna.
 
 2. **Nedostatak Grafičkog Korisničkog Sučelja (GUI)**:
+
    - Interakcija igrača se odvija isključivo putem terminala. Nema implementiranih grafičkih elemenata za unos poteza putem miša ili drugih GUI kontrola.
 
 3. **Nedostatak Provjere Šah-Mata i Pata**:
+
    - Projekt ne provjerava uvjete za šah-mat ili pat. Igrači moraju sami prepoznati kada je igra završena.
 
 4. **Nedostatak Podešavanja i Opcija Igranja**:
+
    - Nema mogućnosti odabira različitih postavki igre poput vremenskog ograničenja, različitih početnih pozicija, ili igranja sa specifičnim pravilima.
 
 5. **Nedostatak Spremljenih Partija**:
+
    - Projekt ne podržava spremanje i učitavanje partija. Svaka igra mora se odigrati u jednom sjedanju.
 
 6. **Nedostatak Zvuka i Animacija**:
+
    - Projekt ne uključuje zvukove ili animacije za poteze figura, što može umanjiti iskustvo igranja.
 
 7. **Nedostatak AI Protivnika**:
@@ -79,36 +89,41 @@ Projekt je organiziran u nekoliko modula, svaki sa specifičnom funkcionalnošć
 ### Moduli Projekta
 
 1. **Main.hs**
+
    - **Opis**: Glavni ulazni modul koji pokreće program.
    - **Funkcionalnost**: Inicijalizira šahovsku ploču, boju igrača, pokreće petlju za unos putem terminala i pokreće grafičku simulaciju.
 
 2. **Chessboard.hs**
+
    - **Opis**: Modul koji definira šahovsku ploču i osnovne operacije na njoj.
-   - **Funkcionalnost**: 
+   - **Funkcionalnost**:
      - Inicijalizira početno stanje šahovske ploče.
      - Definira funkcije za crtanje šahovske ploče.
      - Pruža funkcije za dohvaćanje i provjeru stanja pojedinih polja na ploči.
 
 3. **ChessSprites.hs**
+
    - **Opis**: Modul koji se bavi crtanjem šahovskih figura kao spriteova.
    - **Funkcionalnost**: Učitava slike figura i postavlja ih na odgovarajuća mjesta na ploči.
 
 4. **PlayerInput.hs**
+
    - **Opis**: Modul za rukovanje unosom igrača putem terminala.
-   - **Funkcionalnost**: 
+   - **Funkcionalnost**:
      - Pokreće petlju koja čeka unos igrača.
      - Validira unose igrača i ažurira stanje šahovske ploče.
      - Upravljanje izmjenom poteza između igrača.
 
 5. **ChessPieces.hs**
+
    - **Opis**: Modul koji definira šahovske figure i njihove karakteristike.
-   - **Funkcionalnost**: 
+   - **Funkcionalnost**:
      - Definira tipove podataka za figure i boje.
      - Pruža funkcije za rad s figurama, uključujući njihovu boju i vrstu.
 
 6. **ChessLogic.hs**
    - **Opis**: Modul za implementaciju logike igre.
-   - **Funkcionalnost**: 
+   - **Funkcionalnost**:
      - Provjerava validnost poteza.
      - Ažurira stanje ploče nakon valjanog poteza.
      - Upravlja izmjenom boje igrača.
@@ -149,13 +164,16 @@ Svaki modul ima specifičnu ulogu i zajedno omogućavaju funkcionalnost šahovsk
 Ova datoteka implementira jednostavnu šahovsku igru koristeći Haskell i Gloss biblioteku za grafiku. Program uključuje:
 
 1. **Inicijalizacija stanja**:
+
    - Kreira početno stanje šahovske ploče i postavlja početnu boju igrača na bijelu.
    - Koristi promjenjive reference (`IORef`) za držanje stanja ploče i trenutne boje igrača.
 
 2. **Rukovanje unosom igrača**:
+
    - Pokreće petlju za unos naredbi igrača u zasebnoj niti koristeći `forkIO`. Ova petlja omogućava igračima da unose poteze putem terminala.
 
 3. **Grafička simulacija**:
+
    - Pokreće grafičku simulaciju šahovske ploče koristeći Gloss. Simulacija kontinuirano osvježava prikaz ploče.
    - Kombinira vizualni prikaz šahovske ploče i figura kako bi se igračima omogućilo praćenje stanja igre.
 
@@ -202,7 +220,7 @@ main = do
 
 -- Funkcija za pokretanje simulacijskog programa
 runProgram :: IORef Chessboard -> Display -> IO ()
-runProgram boardRef display = 
+runProgram boardRef display =
   simulateIO display black 10 initialChessboard env2Pic (step boardRef)  -- simulateIO pokreće Gloss simulaciju s početnim okruženjem, funkcijom renderiranja i funkcijom koraka ažuriranja
 
 
@@ -220,9 +238,11 @@ step boardRef _ _ _ = readIORef boardRef  -- Pročitaj trenutno stanje šahovske
 ```
 
 1. **Module Declaration**:
+
    - `module Main where`: Definira glavni modul programa.
 
 2. **Imports**:
+
    - `import Data.IORef (IORef, newIORef, readIORef)`: Uvozi funkcije i tipove za rad s promjenjivim referencama u IO monadi.
    - `import Graphics.Gloss (Display (InWindow), Picture, black, pictures)`: Uvozi dijelove Gloss biblioteke potrebne za grafiku, uključujući tipove za prikaz, slike i boje.
    - `import Graphics.Gloss.Interface.IO.Simulate (ViewPort, simulateIO)`: Uvozi Gloss funkcije za simulaciju s IO.
@@ -233,6 +253,7 @@ step boardRef _ _ _ = readIORef boardRef  -- Pročitaj trenutno stanje šahovske
    - `import ChessPieces`: Uvozi definicije vezane uz šahovske figure.
 
 3. **Main Function**:
+
    - `main :: IO ()`: Definira tip glavne funkcije kao IO akciju.
    - `boardRef <- newIORef initialChessboard`: Inicijalizira promjenjivu referencu (`IORef`) za početno stanje šahovske ploče.
    - `colorRef <- newIORef White`: Inicijalizira promjenjivu referencu (`IORef`) za početno stanje boje igrača (`Bijela`).
@@ -240,6 +261,7 @@ step boardRef _ _ _ = readIORef boardRef  -- Pročitaj trenutno stanje šahovske
    - `runProgram boardRef (InWindow "Chessboard" (500, 500) (100, 100))`: Pokreće Gloss simulacijski program s referencom na ploču i postavkama prikaza.
 
 4. **runProgram Function**:
+
    - `runProgram :: IORef Chessboard -> Display -> IO ()`: Definira tip funkcije.
    - `simulateIO display black 10 initialChessboard env2Pic (step boardRef)`: Pokreće Gloss simulaciju:
      - `display`: Postavke prikaza.
@@ -250,6 +272,7 @@ step boardRef _ _ _ = readIORef boardRef  -- Pročitaj trenutno stanje šahovske
      - `(step boardRef)`: Funkcija za ažuriranje stanja ploče.
 
 5. **env2Pic Function**:
+
    - `env2Pic :: Chessboard -> IO Picture`: Definira tip funkcije.
    - `sprites <- drawChessboardSprites board`: Crta spriteove šahovske ploče.
    - `let boardPic = drawChessboard`: Crta mrežu šahovske ploče.
@@ -259,13 +282,14 @@ step boardRef _ _ _ = readIORef boardRef  -- Pročitaj trenutno stanje šahovske
    - `step :: IORef Chessboard -> ViewPort -> Float -> Chessboard -> IO Chessboard`: Definira tip funkcije.
    - `step boardRef _ _ _ = readIORef boardRef`: Čita i vraća trenutno stanje šahovske ploče iz `IORef`. Dodatni parametri (`ViewPort`, `Float`, `Chessboard`) se ignoriraju u ovoj implementaciji.
 
-
 #### Što je `IORef`?
+
 `IORef` je referentni tip koji omogućava promjenjivo stanje unutar IO monade. U čisto funkcionalnom jeziku poput Haskella, varijable su nepromjenjive po defaultu. Međutim, ponekad je potrebno raditi s promjenjivim stanjem, na primjer u aplikacijama koje uključuju korisnički unos ili grafičke interfejse. `IORef` omogućava promjenjivo stanje na način koji je siguran unutar IO monade.
 
 `newIORef` prima početnu vrijednost kao argument i vraća `IO` akciju koja stvara novi `IORef` s tom početnom vrijednošću.
 
 ### Primjer
+
 U gornjem kodu za igru šah, `newIORef` se koristi za stvaranje referenci na stanje šahovske ploče i trenutnu boju igrača.
 
 ```haskell
@@ -278,6 +302,7 @@ main = do
 ```
 
 - `boardRef <- newIORef initialChessboard`:
+
   - Stvara novi `IORef` koji sadrži početno stanje šahovske ploče definirano u `initialChessboard`.
   - `boardRef` je referenca koja omogućava pristup i modifikaciju šahovske ploče u programu.
 
@@ -288,18 +313,22 @@ main = do
 Korištenje `newIORef` omogućava upravljanje promjenjivim stanjem u funkcionalnom jeziku poput Haskella na siguran način unutar IO monade. U primjeru šahovske igre, `IORef` omogućava ažuriranje i čitanje stanja šahovske ploče i trenutne boje igrača tijekom izvršavanja programa.
 
 #### Što je `forkIO`?
+
 `forkIO` je funkcija u Haskellovom modulu `Control.Concurrent` koja omogućava paralelno (konkurentno) izvršavanje IO akcija. Omogućava stvaranje novog lakog procesa (eng. lightweight thread) koji se izvršava istovremeno s glavnim programom.
 
 `forkIO` omogućava pokretanje IO akcije u zasebnoj Haskellovoj dretvi (thread), što znači da se ta akcija može izvršavati paralelno s drugim IO akcijama u programu. Haskellove dretve su lake i učinkovite, omogućujući visok stupanj konkurentnosti.
 
 #### Sintaksa
+
 ```haskell
 forkIO :: IO () -> IO ThreadId
 ```
+
 - Prima IO akciju (tipa `IO ()`) kao argument.
 - Vraća `ThreadId`, identifikator novostvorene dretve.
 
 #### Kako `forkIO` radi?
+
 Kada se `forkIO` pozove s IO akcijom, ta akcija se pokreće u novoj dretvi. Glavna nit nastavlja s izvršavanjem ostatka programa bez čekanja da nova nit završi. Ovo je korisno za zadatke koji se mogu izvoditi paralelno, poput rukovanja korisničkim unosom ili rada s mrežom.
 
 ### Primjer
@@ -315,12 +344,13 @@ main = do
   runProgram boardRef (InWindow "Chessboard" (500, 500) (100, 100))  -- Pokreni simulacijski program s danom referencom ploče i postavkama prikaza
 ```
 
-- `forkIO $ terminalInputLoop boardRef colorRef`: 
+- `forkIO $ terminalInputLoop boardRef colorRef`:
   - Poziva `forkIO` s akcijom `terminalInputLoop boardRef colorRef`.
   - `terminalInputLoop boardRef colorRef` je funkcija koja se izvršava u zasebnoj dretvi.
   - Ova funkcija rukuje korisničkim unosom putem terminala i ažurira stanje šahovske ploče (`boardRef`) i trenutnu boju igrača (`colorRef`).
 
 #### Prednosti korištenja `forkIO`
+
 - **Paralelizam**: Omogućava izvršavanje više IO akcija paralelno, što može povećati učinkovitost programa.
 - **Jednostavnost**: Korištenje `forkIO` je jednostavno i ne zahtijeva složeno upravljanje dretvi.
 - **Brza reakcija**: Omogućava brzu reakciju na korisnički unos ili druge vanjske događaje bez blokiranja glavne dretve.
@@ -336,10 +366,12 @@ main = do
 Ovaj modul pruža osnovne funkcije za crtanje i prikaz 2D grafike.
 
 - **`Display (InWindow)`**:
+
   - `Display`: Tip koji predstavlja različite načine prikaza prozora.
   - `InWindow`: Konstruktor za prikaz aplikacije u prozoru s određenim nazivom, dimenzijama i pozicijom na ekranu.
 
 - **`Picture`**:
+
   - Tip koji predstavlja slike koje se mogu crtati na ekran. Slike mogu biti osnovni oblici (pravokutnici, krugovi), tekst ili složene slike sastavljene od drugih slika.
 
 - **`pictures`**:
@@ -350,9 +382,11 @@ Ovaj modul pruža osnovne funkcije za crtanje i prikaz 2D grafike.
 Ovaj modul pruža funkcije za kreiranje interaktivnih simulacija koje mogu reagirati na korisnički unos i mijenjati se tijekom vremena.
 
 - **`ViewPort`**:
+
   - Tip koji predstavlja trenutno stanje prikaza, uključujući informacije o povećanju i pomicanju prikaza. Koristi se za transformiranje koordinata tijekom crtanja.
 
 - **`simulateIO`**:
+
   - Funkcija koja omogućava stvaranje simulacija koje se ažuriraju i ponovno crtaju na temelju vremena i korisničkog unosa. Koristi se za definiranje simulacijskog programa u Glossu.
 
   ```haskell
@@ -370,12 +404,14 @@ Ovaj modul pruža funkcije za kreiranje interaktivnih simulacija koje mogu reagi
 U `main.hs` kodu, Gloss biblioteka se koristi za stvaranje prozora u kojem će se prikazivati šahovska ploča i figure. `simulateIO` funkcija se koristi za pokretanje simulacije koja kontinuirano osvježava prikaz na temelju trenutnog stanja šahovske ploče.
 
 - **`Display (InWindow)`**:
+
   - Koristi se za definiranje prozora aplikacije sa specifičnim nazivom, dimenzijama i pozicijom:
     ```haskell
     InWindow "Chessboard" (500, 500) (100, 100)
     ```
 
 - **`Picture`**:
+
   - Koristi se za stvaranje i kombiniranje slika šahovske ploče i figura:
     ```haskell
     let boardPic = drawChessboard
@@ -383,12 +419,14 @@ U `main.hs` kodu, Gloss biblioteka se koristi za stvaranje prozora u kojem će s
     ```
 
 - **`black`**:
+
   - Postavlja boju pozadine prozora na crnu:
     ```haskell
     simulateIO display black 10 initialChessboard env2Pic (step boardRef)
     ```
 
 - **`pictures`**:
+
   - Kombinira mrežu šahovske ploče i figure u jednu sliku:
     ```haskell
     return $ pictures [boardPic, sprites]
@@ -403,8 +441,8 @@ U `main.hs` kodu, Gloss biblioteka se koristi za stvaranje prozora u kojem će s
 ### Primjer odvojenih slika i kombinirane slike:
 
 <div style="display: flex; align-items: flex-end;">
-  <img src="image-seperated.png" alt="Odvojene slike" style="margin: 16px;" width="25%">
-  <img src="image-combined.png" alt="Kombinirana slika" style="margin: 16px;"   width="25%">
+  <img src="https://github.com/lukablaskovic/HaskelLudens/blob/main/chess/explanation/image-combined.png?raw=true" alt="Odvojene slike" style="margin: 16px;" width="25%">
+  <img src="https://github.com/lukablaskovic/HaskelLudens/blob/main/chess/explanation/image-seperated.png?raw=true" alt="Kombinirana slika" style="margin: 16px;"   width="25%">
 </div>
 
 - **Odvojene slika**: Prikazuje pozadinu, labele, šahovsku ploču, figure kao zasebne slika.
@@ -417,12 +455,15 @@ Korištenjem funkcije `pictures`, pojedinačne slike (kao što su labele, ploča
 Modul `ChessPieces.hs` u projektu za šahovsku igru definira osnovne tipove podataka i funkcije povezane sa šahovskim figurama i njihovim karakteristikama. Konkretno, modul pruža:
 
 1. **Definiciju Boja**:
+
    - Modul definira tip podataka `Color`, koji predstavlja boje šahovskih figura. Dostupne boje su `White` (bijela) i `Black` (crna).
 
 2. **Definiciju Šahovskih Figura**:
+
    - Modul definira tip podataka `Piece`, koji predstavlja različite vrste šahovskih figura (kralj, kraljica, top, lovac, konj i pješak). Svaka figura je povezana s određenom bojom (`White` ili `Black`).
 
 3. **Definiciju Polja na Šahovskoj Ploči**:
+
    - Modul definira tip podataka `Square`, koji predstavlja polje na šahovskoj ploči. Polje može biti `Empty` (prazno) ili `Occupied` (zauzeto figurom). Ako je polje zauzeto, čuva se informacija o figuri koja zauzima to polje.
 
 4. **Funkciju za Dobivanje Boje Figure**:
@@ -467,20 +508,24 @@ pieceColor (Pawn color)   = color
 ```
 
 1. **Deklaracije Modula**:
-   - `module ChessPieces (Color(..), Piece(..), Square(..), pieceColor) where`: 
+
+   - `module ChessPieces (Color(..), Piece(..), Square(..), pieceColor) where`:
      - Ova linija definira modul `ChessPieces` i specificira koje tipove podataka i funkcije modul izvozi: `Color`, `Piece`, `Square` i `pieceColor`.
 
 2. **Tip Podatka Boje**:
+
    - `data Color = White | Black deriving (Eq, Show)`:
      - Definira tip podataka `Color` koji može biti `White` ili `Black`.
      - `deriving (Eq, Show)` automatski generira instance tipova `Eq` (za usporedbu vrijednosti) i `Show` (za pretvaranje u niz za ispis).
 
 3. **Tip Podatka Figure**:
+
    - `data Piece = King Color | Queen Color | Rook Color | Bishop Color | Knight Color | Pawn Color deriving (Eq, Show)`:
      - Definira tip podataka `Piece` s konstruktorima za svaku vrstu šahovske figure (`King`, `Queen`, `Rook`, `Bishop`, `Knight`, `Pawn`), svaki s argumentom tipa `Color`.
      - `deriving (Eq, Show)` automatski generira instance tipova `Eq` i `Show` za `Piece`.
 
 4. **Tip Podatka Polja**:
+
    - `data Square = Empty | Occupied Piece deriving (Eq, Show)`:
      - Definira tip podataka `Square` koji može biti `Empty` (prazno) ili `Occupied` (zauzeto figurom tipa `Piece`).
      - `deriving (Eq, Show)` automatski generira instance tipova `Eq` i `Show` za `Square`.
@@ -489,7 +534,7 @@ pieceColor (Pawn color)   = color
    - `pieceColor :: Piece -> Color`:
      - Tip funkcije `pieceColor` koja prima argument tipa `Piece` i vraća vrijednost tipa `Color`.
    - `pieceColor (King color) = color` i slične linije za ostale figure:
-     - Funkcija koristi obrasce za raspakiravanje konstruktora `Piece` i vraća pridruženu boju (`color`). 
+     - Funkcija koristi obrasce za raspakiravanje konstruktora `Piece` i vraća pridruženu boju (`color`).
      - Za svaku vrstu figure (`King`, `Queen`, `Rook`, `Bishop`, `Knight`, `Pawn`), funkcija vraća boju koja je pridružena toj figuri.
 
 ### Namjena Modula
@@ -498,26 +543,28 @@ Modul `ChessPieces.hs` služi kao temelj za definiranje osnovnih elemenata igre 
 
 ## `ChessSprites.hs`
 
-![alt text](white_king.png)
-![alt text](white_queen.png)
-![alt text](white_rook.png)
-![alt text](white_bishop.png)
-![alt text](white_knight.png)
-![alt text](white_pawn.png)
+![alt text](https://github.com/lukablaskovic/HaskelLudens/blob/main/chess/explanation/white_king.png?raw=true)
+![alt text](https://github.com/lukablaskovic/HaskelLudens/blob/main/chess/explanation/white_queen.png?raw=true)
+![alt text](https://github.com/lukablaskovic/HaskelLudens/blob/main/chess/explanation/white_rook.png?raw=true)
+![alt text](https://github.com/lukablaskovic/HaskelLudens/blob/main/chess/explanation/white_bishop.png?raw=true)
+![alt text](https://github.com/lukablaskovic/HaskelLudens/blob/main/chess/explanation/white_knight.png?raw=true)
+![alt text](https://github.com/lukablaskovic/HaskelLudens/blob/main/chess/explanation/white_pawn.png?raw=true)
 
-![alt text](black_king.png)
-![alt text](black_queen.png)
-![alt text](black_rook.png)
-![alt text](black_bishop.png)
-![alt text](black_knight.png)
-![alt text](black_pawn.png)
+![alt text](https://github.com/lukablaskovic/HaskelLudens/blob/main/chess/explanation/black_king.png?raw=true)
+![alt text](https://github.com/lukablaskovic/HaskelLudens/blob/main/chess/explanation/black_queen.png?raw=true)
+![alt text](https://github.com/lukablaskovic/HaskelLudens/blob/main/chess/explanation/black_rook.png?raw=true)
+![alt text](https://github.com/lukablaskovic/HaskelLudens/blob/main/chess/explanation/black_bishop.png?raw=true)
+![alt text](https://github.com/lukablaskovic/HaskelLudens/blob/main/chess/explanation/black_knight.png?raw=true)
+![alt text](https://github.com/lukablaskovic/HaskelLudens/blob/main/chess/explanation/black_pawn.png?raw=true)
 
 Modul `ChessSprites.hs` u projektu za šahovsku igru odgovoran je za grafički prikaz šahovskih figura koristeći Gloss biblioteku. Konkretno, modul pruža funkcionalnosti za:
 
 1. **Učitavanje Slika Figura**:
+
    - Modul učitava slike (spriteove) različitih šahovskih figura iz datoteka. Svaka figura (bijela i crna) ima svoju odgovarajuću sliku koja se koristi za prikaz na ploči.
 
 2. **Crtanje Figura na Šahovskoj Ploči**:
+
    - Modul definira funkcije za crtanje šahovskih figura na njihovim odgovarajućim pozicijama na ploči. Koristeći Gloss funkcije za transformaciju i prikaz slika, figure se prikazuju na točnim koordinatama ploče.
 
 3. **Kombiniranje Mreže i Figura**:
@@ -579,14 +626,17 @@ drawChessboardSprites board = do
 ```
 
 1. **Deklaracije Modula**:
+
    - `module ChessSprites (drawChessboardSprites) where`: Definira modul `ChessSprites` i izvozi funkciju `drawChessboardSprites`.
 
 2. **Uvozi**:
+
    - `import Graphics.Gloss`: Uvoz Gloss biblioteke za rad s grafikom.
    - `import ChessPieces`: Uvoz modula za rad s šahovskim figurama i bojama.
    - `import Chessboard`: Uvoz modula za rad sa šahovskom pločom.
 
 3. **Učitavanje Slika**:
+
    - `loadImages :: IO [(Piece, Picture)]`: Definira funkciju koja vraća IO akciju koja učitava slike figura i vraća listu parova (figura, slika).
    - `let whitePieces = ...`: Definira listu bijelih figura i pripadajućih imena datoteka.
    - `let blackPieces = ...`: Definira listu crnih figura i pripadajućih imena datoteka.
@@ -607,7 +657,7 @@ drawChessboardSprites board = do
      - `| (y, row) <- zip [0..] board`: Iteracija kroz redove ploče.
    - `return $ pictures $ concat spriteBoard`: Vraća kombiniranu sliku ploče i figura koristeći `pictures` i `concat` za spajanje svih slika u jednu.
 
-![alt text](pieces.png)
+![alt text](https://github.com/lukablaskovic/HaskelLudens/blob/main/chess/explanation/pieces.png?raw=true)
 
 ### Namjena Modula
 
@@ -615,17 +665,20 @@ Modul `ChessSprites.hs` služi za stvaranje vizualnog prikaza šahovske igre. Nj
 
 ## `Chessboard.hs`
 
-![alt text](board.png)
+![alt text](https://github.com/lukablaskovic/HaskelLudens/blob/main/chess/explanation/board.png?raw=true)
 
 Modul `Chessboard.hs` u projektu za šahovsku igru odgovoran je za definiciju i manipulaciju šahovske ploče. Konkretno, modul pruža funkcionalnosti za:
 
 1. **Definiciju Šahovske Ploče**:
+
    - Definira tip podataka `Chessboard`, koji predstavlja šahovsku ploču kao dvodimenzionalni popis (`list`) polja (`Square`).
 
 2. **Inicijalizacija Početnog Stanja Ploče**:
+
    - Pruža funkciju `initialChessboard`, koja vraća početno stanje šahovske ploče s postavljenim figurama na početne pozicije.
 
 3. **Crtanje Šahovske Ploče**:
+
    - Definira funkciju `drawChessboard`, koja koristi Gloss biblioteku za crtanje mreže šahovske ploče.
 
 4. **Dohvaćanje i Provjera Stanja Polja**:
@@ -703,18 +756,22 @@ isEmpty _ = False  -- U suprotnom, vraća False
 ```
 
 1. **Deklaracije Modula**:
-   - `module Chessboard (Chessboard, initialChessboard, drawChessboard, pieceAt, isEmpty) where`: 
+
+   - `module Chessboard (Chessboard, initialChessboard, drawChessboard, pieceAt, isEmpty) where`:
      - Definira modul `Chessboard` i specificira koje tipove i funkcije izvozi: `Chessboard`, `initialChessboard`, `drawChessboard`, `pieceAt`, `isEmpty`.
 
 2. **Uvozi**:
+
    - `import Graphics.Gloss`: Uvoz Gloss biblioteke za rad s grafikom.
    - `import ChessPieces`: Uvoz modula ChessPieces za rad sa šahovskim figurama i poljima.
 
 3. **Sinonimi Tipova**:
+
    - `type Row = [Square]`: Definira `Row` kao sinonim za listu `Square`.
    - `type Chessboard = [Row]`: Definira `Chessboard` kao sinonim za listu redova (`Row`).
 
 4. **inicijalna Ploča**:
+
    - `initialChessboard :: Chessboard`: Definira početno stanje šahovske ploče.
    - Popis polja na šahovskoj ploči s figurama postavljenim na početne pozicije:
      - Bijele figure u prvom redu.
@@ -724,25 +781,30 @@ isEmpty _ = False  -- U suprotnom, vraća False
      - Crne figure u osmom redu.
 
 5. **Crtanje Ploče**:
+
    - `drawChessboard :: Picture`: Funkcija koja crta šahovsku ploču koristeći Gloss.
    - Kombinira slike kvadrata, oznaka stupaca i oznaka redova u jednu sliku pomoću `pictures`.
 
 6. **Crtanje Polja**:
+
    - `drawSquare :: Int -> Int -> Picture`: Funkcija koja crta pojedini kvadrat šahovske ploče.
    - Koristi `translate` za postavljanje kvadrata na odgovarajuću poziciju.
    - Koristi `color` i `rectangleSolid` za crtanje kvadrata odgovarajuće boje.
 
 7. **Boje Polja**:
+
    - `darkBrown` i `lightBrown`: Definiraju prilagođene boje za kvadrate šahovske ploče.
 
-   - ![alt text](tile_dark.png) ![alt text](tile_light.png)
+   - ![alt text](https://github.com/lukablaskovic/HaskelLudens/blob/main/chess/explanation/tile_dark.png?raw=true) ![alt text](https://github.com/lukablaskovic/HaskelLudens/blob/main/chess/explanation/tile_light.png?raw=true)
 
 8. **Crtanje Labela**:
+
    - `drawLabel :: Int -> Int -> Picture`: Funkcija koja crta oznake stupaca (a-h).
    - `drawSideLabel :: Int -> Picture`: Funkcija koja crta oznake redova (1-8).
-   - ![alt text](labels.png)
+   - ![alt text](https://github.com/lukablaskovic/HaskelLudens/blob/main/chess/explanation/labels.png?raw=true)
 
 9. **Dohvaćanje Figure na Poziciji**:
+
    - `pieceAt :: Chessboard -> (Int, Int) -> Maybe Piece`: Funkcija koja dohvaća figuru na danoj poziciji na ploči.
    - Koristi indeksiranje da bi dohvatila polje i vraća figuru ako je polje zauzeto.
 
@@ -764,12 +826,15 @@ Ovaj modul je ključan za logiku igre, jer omogućava centralizirano upravljanje
 Modul `ChessLogic.hs` u projektu za šahovsku igru odgovoran je za implementaciju logike igre. Konkretno, modul pruža funkcionalnosti za:
 
 1. **Validaciju Poteza**:
+
    - Provjerava jesu li potezi figura valjani prema pravilima šaha. Ovo uključuje provjeru specifičnih pravila za svaku figuru, kao što su dozvoljeni pokreti za kralja, kraljicu, topa, lovca, konja i pješaka.
 
 2. **Izvođenje Poteza**:
+
    - Ažurira stanje šahovske ploče nakon što je potez validiran kao ispravan. Ovo uključuje pomicanje figura i uklanjanje figura koje su pojedene.
 
 3. **Provjeru i Upravljanje Stanjem Igrača**:
+
    - Upravlja izmjenom poteza između bijelog i crnog igrača. Osigurava da se igrači izmjenjuju pravilno i prati koja je boja trenutno na potezu.
 
 4. **Provjeru Specifičnih Stanja**:
@@ -792,7 +857,7 @@ makeMove :: Color -> (Int, Int) -> (Int, Int) -> Chessboard -> Maybe Chessboard
 makeMove color (fromX, fromY) (toX, toY) board
   -- Provjerava je li potez unutar granica ploče, valjan i je li figura na početnoj poziciji odgovarajuće boje
   | inBounds (fromX, fromY) && inBounds (toX, toY) &&
-    isValidMove board (fromX, fromY) (toX, toY) && pieceColorAt board (fromX, fromY) == Just color = 
+    isValidMove board (fromX, fromY) (toX, toY) && pieceColorAt board (fromX, fromY) == Just color =
       let piece = board !! fromY !! fromX  -- Dohvati figuru na početnoj poziciji
           -- Ažuriraj redak na ciljnoj poziciji s figurom
           updatedRow row idx newSquare = take idx row ++ [newSquare] ++ drop (idx + 1) row
@@ -820,7 +885,7 @@ pieceColorAt board (x, y) = case board !! y !! x of
 -- Funkcija za validaciju poteza određene figure
 isValidMove :: Chessboard -> (Int, Int) -> (Int, Int) -> Bool
 isValidMove board (x1, y1) (x2, y2) = case pieceAt board (x1, y1) of
-  Just piece -> 
+  Just piece ->
     let color = pieceColor piece  -- Dohvati boju figure
     in case pieceAt board (x2, y2) of
          Just destPiece -> pieceColor destPiece /= color && isValidPieceMove piece (x1, y1) (x2, y2) board  -- Provjeri je li ciljna pozicija zauzeta protivničkom figurom i je li potez valjan
@@ -838,7 +903,7 @@ isValidPieceMove (King color) = isValidKingMove color  -- Provjeri valjanost pot
 
 -- Validacija poteza pješaka (pojednostavljena verzija)
 isValidPawnMove :: Color -> (Int, Int) -> (Int, Int) -> Chessboard -> Bool
-isValidPawnMove color (x1, y1) (x2, y2) board = 
+isValidPawnMove color (x1, y1) (x2, y2) board =
   let direction = if color == White then 1 else -1  -- Smjer kretanja pješaka ovisno o boji
       startRow = if color == White then 1 else 6  -- Početni red pješaka ovisno o boji
       isForwardMove = x1 == x2 && (y2 - y1 == direction || (y1 == startRow && y2 - y1 == 2 * direction))  -- Provjera je li potez naprijed
@@ -847,27 +912,27 @@ isValidPawnMove color (x1, y1) (x2, y2) board =
 
 -- Validacija poteza topa
 isValidRookMove :: Color -> (Int, Int) -> (Int, Int) -> Chessboard -> Bool
-isValidRookMove color (x1, y1) (x2, y2) board = 
+isValidRookMove color (x1, y1) (x2, y2) board =
   (x1 == x2 || y1 == y2) && pathIsClear board (x1, y1) (x2, y2)  -- Potez je valjan ako je u istom stupcu ili redu i putanja je čista
 
 -- Validacija poteza konja
 isValidKnightMove :: Color -> (Int, Int) -> (Int, Int) -> Chessboard -> Bool
-isValidKnightMove color (x1, y1) (x2, y2) _ = 
+isValidKnightMove color (x1, y1) (x2, y2) _ =
   (abs (x2 - x1) == 2 && abs (y2 - y1) == 1) || (abs (x2 - x1) == 1 && abs (y2 - y1) == 2)  -- Potez je valjan ako je u obliku slova "L"
 
 -- Validacija poteza lovca
 isValidBishopMove :: Color -> (Int, Int) -> (Int, Int) -> Chessboard -> Bool
-isValidBishopMove color (x1, y1) (x2, y2) board = 
+isValidBishopMove color (x1, y1) (x2, y2) board =
   abs (x2 - x1) == abs (y2 - y1) && pathIsClear board (x1, y1) (x2, y2)  -- Potez je valjan ako se kreće dijagonalno i putanja je čista
 
 -- Validacija poteza kraljice
 isValidQueenMove :: Color -> (Int, Int) -> (Int, Int) -> Chessboard -> Bool
-isValidQueenMove color (x1, y1) (x2, y2) board = 
+isValidQueenMove color (x1, y1) (x2, y2) board =
   isValidRookMove color (x1, y1) (x2, y2) board || isValidBishopMove color (x1, y1) (x2, y2) board  -- Kraljica se može kretati kao top ili lovac
 
 -- Validacija poteza kralja
 isValidKingMove :: Color -> (Int, Int) -> (Int, Int) -> Chessboard -> Bool
-isValidKingMove color (x1, y1) (x2, y2) _ = 
+isValidKingMove color (x1, y1) (x2, y2) _ =
   abs (x2 - x1) <= 1 && abs (y2 - y1) <= 1  -- Kralj se može kretati za jedno polje u bilo kojem smjeru
 
 -- Pomoćne funkcije
@@ -887,18 +952,22 @@ pathIsClear board (x1, y1) (x2, y2) =
 ```
 
 1. **Deklaracije Modula**:
+
    - `module ChessLogic (makeMove, isValidMove, switchColor) where`: Definira modul `ChessLogic` i izvozi funkcije `makeMove`, `isValidMove` i `switchColor`.
 
 2. **Uvozi**:
+
    - `import Chessboard (Chessboard, pieceAt)`: Uvoz modula `Chessboard` za rad sa šahovskom pločom.
    - `import ChessPieces`: Uvoz modula `ChessPieces` za rad sa šahovskim figurama.
 
 3. **Promjena Boje Igrača**:
+
    - `switchColor :: Color -> Color`: Funkcija koja mijenja trenutnog igrača.
    - `switchColor White = Black`: Ako je trenutna boja bijela, promijeni na crnu.
    - `switchColor Black = White`: Ako je trenutna boja crna, promijeni na bijelu.
 
 4. **Potez**:
+
    - `makeMove :: Color -> (Int, Int) -> (Int, Int) -> Chessboard -> Maybe Chessboard`: Funkcija koja obavlja potez na šahovskoj ploči ako je potez valjan.
    - `inBounds (fromX, fromY) && inBounds (toX, toY)`: Provjera je li potez unutar granica ploče.
    - `isValidMove board (fromX, fromY) (toX, toY)`: Provjera je li potez valjan.
@@ -910,15 +979,18 @@ pathIsClear board (x1, y1) (x2, y2) =
    - `Nothing`: Ako je potez nevaljan, vrati Nothing.
 
 5. **Provjera Pozicije**:
+
    - `inBounds :: (Int, Int) -> Bool`: Funkcija koja provjerava je li pozicija unutar granica šahovske ploče.
    - `x >= 0 && x < 8 && y >= 0 && y < 8`: Ploča je 8x8, pa x i y moraju biti u rasponu 0-7.
 
 6. **Boja Figure Na Poziciji**:
+
    - `pieceColorAt :: Chessboard -> (Int, Int) -> Maybe Color`: Funkcija koja dohvaća boju figure na danoj poziciji.
    - `Occupied piece -> Just (pieceColor piece)`: Ako je polje zauzeto, vrati boju figure.
    - `_ -> Nothing`: Ako je polje prazno, vrati Nothing.
 
 7. **Validacija Poteza**:
+
    - `isValidMove :: Chessboard -> (Int, Int) -> (Int, Int) -> Bool`: Funkcija koja validira potez određene figure.
    - `pieceAt board (x1, y1)`: Dohvaćanje figure na početnoj poziciji.
    - `pieceColor piece`: Dohvaćanje boje figure.
@@ -926,6 +998,7 @@ pathIsClear board (x1, y1) (x2, y2) =
    - `isValidPieceMove piece (x1, y1) (x2, y2) board`: Provjera je li potez valjan za specifičnu figuru.
 
 8. **Validacija Micanja Figure**:
+
    - `isValidPieceMove :: Piece -> (Int, Int) -> (Int, Int) -> Chessboard -> Bool`: Funkcija koja provjerava valjanost poteza specifične figure.
    - `isValidPawnMove color`: Provjera valjanosti poteza pješaka.
    - `isValidRookMove color`: Provjera valjanosti poteza topa.
@@ -935,49 +1008,54 @@ pathIsClear board (x1, y1) (x2, y2) =
    - `isValidKingMove color`: Provjera valjanosti poteza kralja.
 
 9. **Validacija poteza specifičnih figura**:
+
    - **`isValidPawnMove`**:
+
      - Provjerava valjanost poteza pješaka, uzimajući u obzir smjer kretanja (naprijed za bijele, nazad za crne), početni red i mogućnost hvatanja figura protivnika dijagonalno.
      - Ako je pješak u početnom redu, može se pomaknuti za dva polja unaprijed, pod uvjetom da su oba polja prazna
-    <br>![alt text](pawn_move_1.png) 
+       <br>![alt text](https://github.com/lukablaskovic/HaskelLudens/blob/main/chess/explanation/pawn_move_1.png?raw=true)
      - Hvatanje protivničke figure moguće je samo dijagonalnim potezom u jednom polju unaprijed.
-    <br>![alt text](pawn_move_2.png)
+       <br>![alt text](https://github.com/lukablaskovic/HaskelLudens/blob/main/chess/explanation/pawn_move_2.png?raw=true)
 
    - **`isValidRookMove`**:
+
      - Provjerava valjanost poteza topa, koji se može kretati horizontalno ili vertikalno bilo kojim brojem polja, pod uvjetom da su sva polja na putu prazna.
      - Ako je putanja slobodna, potez je valjan.
-    <br>![alt text](rook_move.png)
+       <br>![alt text](https://github.com/lukablaskovic/HaskelLudens/blob/main/chess/explanation/rook_move.png?raw=true)
 
    - **`isValidKnightMove`**:
+
      - Provjerava valjanost poteza konja, koji se može kretati u obliku slova "L" (dva polja u jednom smjeru, zatim jedno polje okomito, ili jedno polje u jednom smjeru, zatim dva polja okomito).
      - Konj može preskakati druge figure na ploči.
-    <br>![alt text](knight_move.png)
+       <br>![alt text](https://github.com/lukablaskovic/HaskelLudens/blob/main/chess/explanation/knight_move.png?raw=true)
 
    - **`isValidBishopMove`**:
+
      - Provjerava valjanost poteza lovca, koji se može kretati dijagonalno bilo kojim brojem polja, pod uvjetom da su sva polja na putu prazna.
      - Ako je putanja slobodna, potez je valjan.
-    <br>![alt text](bishop_move.png)
+       <br>![alt text](https://github.com/lukablaskovic/HaskelLudens/blob/main/chess/explanation/bishop_move.png?raw=true)
 
    - **`isValidQueenMove`**:
+
      - Provjerava valjanost poteza kraljice, koja se može kretati kao top (horizontalno ili vertikalno) ili kao lovac (dijagonalno).
      - Potez je valjan ako je slobodna putanja kao za top ili lovca.
-    <div style="display: flex; align-items: center;">
-      <img src="rook_move.png" alt="Odvojene slike" style="margin: 0 8 16 8;" width="25%">
-      <b style="font-size: 64px; margin: 0 0 16 0;">+</b>
-      <img src="bishop_move.png" alt="Kombinirana slika" style="margin: 0 8 16 8;"   width="25%">
-      <b style="font-size: 64px; margin: 0 0 16 0;">=</b>
-      <img src="queen_move.png" alt="Kombinirana slika" style="margin: 0 8 16 8;"   width="25%">
-    </div>
+     <div style="display: flex; align-items: center;">
+       <img src="https://github.com/lukablaskovic/HaskelLudens/blob/main/chess/explanation/rook_move.png?raw=true" alt="Odvojene slike" style="margin: 0 8 16 8;" width="25%">
+       <b style="font-size: 64px; margin: 0 0 16 0;">+</b>
+       <img src="https://github.com/lukablaskovic/HaskelLudens/blob/main/chess/explanation/bishop_move.png?raw=true" alt="Kombinirana slika" style="margin: 0 8 16 8;"   width="25%">
+       <b style="font-size: 64px; margin: 0 0 16 0;">=</b>
+       <img src="https://github.com/lukablaskovic/HaskelLudens/blob/main/chess/explanation/queen_move.png?raw=true" alt="Kombinirana slika" style="margin: 0 8 16 8;"   width="25%">
+     </div>
 
    - **`isValidKingMove`**:
      - Provjerava valjanost poteza kralja, koji se može kretati jedno polje u bilo kojem smjeru (horizontalno, vertikalno ili dijagonalno).
      - Provjerava se je li potez unutar jednog polja.
-    <br>![alt text](king_move.png)
+       <br>![alt text](https://github.com/lukablaskovic/HaskelLudens/blob/main/chess/explanation/king_move.png?raw=true)
 
 10. **Pomoćne funkcije**:
     - **`isOccupiedByOpponent`**:
       - Provjerava je li polje zauzeto protivničkom figurom.
       - Ako je figura na polju različite boje od trenutne figure, vraća `True`, inače `False`.
-      
     - **`pathIsClear`**:
       - Provjerava je li putanja kretanja čista, što znači da nema drugih figura na putu između početne i ciljne pozicije.
       - Izračunava korake (`deltaX`, `deltaY`) potrebne za kretanje od početne do ciljne pozicije i provjerava svako polje na putu da li je prazno (`Empty`).
@@ -986,6 +1064,7 @@ pathIsClear board (x1, y1) (x2, y2) =
 ### Namjena Modula
 
 Modul `ChessLogic.hs` služi kao jezgra logike igre šaha. Njegove funkcionalnosti omogućavaju:
+
 - Validaciju poteza i osiguranje da su svi potezi unutar pravila igre.
 - Ažuriranje stanja ploče na temelju poteza igrača.
 - Upravljanje izmjenom poteza između igrača i praćenje trenutnog stanja igre.
@@ -995,8 +1074,8 @@ Ovaj modul je ključan za osiguravanje pravilnog odvijanja igre i za implementac
 ## `PlayerInput.hs`
 
 <div>
-  <img src="terminal_inputs.png" alt="Odvojene slike" width="75%">
-  <img src="terminal_print_board.png" alt="Kombinirana slika" width="75%">
+  <img src="https://github.com/lukablaskovic/HaskelLudens/blob/main/chess/explanation/terminal_inputs.png?raw=true" alt="Odvojene slike" width="75%">
+  <img src="https://github.com/lukablaskovic/HaskelLudens/blob/main/chess/explanation/terminal_print_board.png?raw=true" alt="Kombinirana slika" width="75%">
 </div>
 
 terminal_inputs
@@ -1004,13 +1083,16 @@ terminal_inputs
 Modul `PlayerInput.hs` u projektu za šahovsku igru odgovoran je za rukovanje unosom igrača putem terminala. Konkretno, modul pruža funkcionalnosti za:
 
 1. **Petlju za Unos Korisnika**:
+
    - Implementira petlju koja kontinuirano čeka na unos igrača. Ova petlja omogućava igračima da unesu svoje poteze koristeći terminal.
 
 2. **Validaciju i Obradu Unosa**:
+
    - Validira unos igrača kako bi osigurala da je u ispravnom formatu (npr. "e2e4" za pomicanje figure s polja e2 na e4).
    - Parsira uneseni potez i ažurira stanje šahovske ploče ako je potez valjan.
 
 3. **Ispis Šahovske Ploče**:
+
    - Pruža funkcionalnost za ispis trenutnog stanja šahovske ploče na terminal, omogućujući igračima da vide aktualno stanje igre.
 
 4. **Upravljanje Izmjenom Poteza**:
@@ -1097,7 +1179,7 @@ showPiece' (King Black) = "k"
 parseCommand :: String -> Maybe ((Int, Int), (Int, Int))
 parseCommand "pb" = Just ((0, 0), (7, 7))  -- Ispis cijele ploče
 parseCommand command
-  | length command == 4 = 
+  | length command == 4 =
       (,) <$> parseSquare (take 2 command) <*> parseSquare (drop 2 command)  -- Parsiranje početne i ciljne pozicije
   | otherwise = Nothing  -- Ako je format nevaljan, vrati Nothing
 
@@ -1113,9 +1195,11 @@ parseSquare _ = Nothing  -- Ako format nije "xy", vrati Nothing
 ```
 
 1. **Deklaracije Modula**:
+
    - Modul `PlayerInput` definira funkciju `terminalInputLoop` koja će biti izvožena.
 
 2. **Uvozi**:
+
    - `Data.IORef`: Koristi se za rad s promjenjivim referencama (`IORef`), koje omogućuju dijeljenje i modifikaciju stanja između različitih dijelova programa.
    - `System.IO`: Koristi se za rad s unosom i izlazom putem terminala, uključujući ispis i osvježavanje.
    - `Control.Monad`: Pruža pomoćne funkcije `forever` (za beskonačne petlje) i `unless` (za uvjetne provjere).
@@ -1124,6 +1208,7 @@ parseSquare _ = Nothing  -- Ako format nije "xy", vrati Nothing
    - `ChessPieces`: Uvozi definicije šahovskih figura i njihovih boja.
 
 3. **Unos Poteza Putem Terminala**:
+
    - `terminalInputLoop`
    - **Opis**: Beskonačna petlja koja upravlja unosom igrača putem terminala.
    - **Rad**:
@@ -1147,6 +1232,7 @@ parseSquare _ = Nothing  -- Ako format nije "xy", vrati Nothing
 #### Funkcije za Prikaz Figura
 
 5. **`showPiece`**:
+
    - **Opis**: Vraća tekstualnu reprezentaciju figure ili praznog polja.
    - **Rad**:
      - Ako je polje zauzeto, poziva `showPiece'` za prikaz figure.
@@ -1160,6 +1246,7 @@ parseSquare _ = Nothing  -- Ako format nije "xy", vrati Nothing
 #### Funkcije za Parsiranje Naredbi
 
 7. **`parseCommand`**:
+
    - **Opis**: Parsira naredbu poput "e2e4" u par koordinata.
    - **Rad**:
      - Ako je naredba "pb", vraća par koordinata koji označava ispis ploče.
@@ -1186,6 +1273,7 @@ Ovaj modul je ključan za omogućavanje dinamične interakcije između igrača i
 #### Control.Monad (forever, unless)
 
 - **forever**:
+
   - **Opis**: `forever` uzima akciju i ponavlja je beskonačno.
   - **Primjer u šahu**: U `terminalInputLoop` funkciji se koristi `forever` da bi se kontinuirano prihvaćao unos od igrača, omogućujući beskonačnu petlju za unos naredbi.
   - **Primjer**:
@@ -1206,6 +1294,7 @@ Ovaj modul je ključan za omogućavanje dinamične interakcije između igrača i
 #### Data.IORef (IORef, atomicWriteIORef, readIORef)
 
 - **IORef**:
+
   - **Opis**: `IORef` je referenca koja omogućuje mutabilne promjene stanja u Haskellu, unutar IO monada.
   - **Primjer u šahu**: `IORef` se koristi za čuvanje stanja šahovske ploče i trenutne boje igrača.
   - **Primjer**:
@@ -1215,6 +1304,7 @@ Ovaj modul je ključan za omogućavanje dinamične interakcije između igrača i
     ```
 
 - **atomicWriteIORef**:
+
   - **Opis**: `atomicWriteIORef` atomarno zapisuje novu vrijednost u `IORef`, osiguravajući da se promjena dogodi bez ikakvih međuprostornih stanja.
   - **Primjer u šahu**: Kada se napravi validan potez, ažurira se stanje ploče i boja igrača atomarno.
   - **Primjer**:
@@ -1235,6 +1325,7 @@ Ovaj modul je ključan za omogućavanje dinamične interakcije između igrača i
 #### System.IO (hFlush, stdout)
 
 - **hFlush**:
+
   - **Opis**: `hFlush` ispražnjava međuspremnik (buffer) za dani `Handle` (obično `stdout`), osiguravajući da se svi podaci odmah pošalju na izlaz.
   - **Primjer u šahu**: Nakon prikaza prompta za unos, `hFlush` se koristi da bi se osiguralo da prompt bude odmah vidljiv korisniku.
   - **Primjer**:
@@ -1256,6 +1347,7 @@ Ovaj modul je ključan za omogućavanje dinamične interakcije između igrača i
 ### Isticanje upotrebe nemjenjivih struktura podataka i čistih funkcija u razvoju igre
 
 - **Nemjenjive strukture podataka**:
+
   - U Haskell-u, šahovska ploča je definirana kao nemjenjiva struktura podataka (immutable). Na primjer, `initialChessboard` je nemjenjiva početna ploča igre
   - Promjene stanja ploče rezultiraju novim objektima ploče, umjesto izmjene postojećih, čime se izbjegava neželjene nuspojave.
 
@@ -1265,6 +1357,7 @@ Ovaj modul je ključan za omogućavanje dinamične interakcije između igrača i
 ### Demonstracija kako funkcijski pristup pojednostavljuje upravljanje složenim interakcijama unutar igre
 
 - **Jednostavnost upravljanja stanjem**:
+
   - `isEmpty` funkcija je čista i jednostavna funkcija koja provjerava je li određeno polje prazno
   - Stanje igre se može jednostavno pratiti kroz promjene stanja referenci (`IORef`), koje sadrže trenutno stanje
 
@@ -1274,6 +1367,7 @@ Ovaj modul je ključan za omogućavanje dinamične interakcije između igrača i
 ### Usporedba s imperativnim i objektno-orijentiranim pristupima u razvoju softvera za igre
 
 - **Imperativni pristup**:
+
   - U imperativnom programiranju, promjene stanja su česte i često nepredvidljive. Na primjer, kod u jeziku C#:
     ```csharp
     public void makeMove(Board board, int fromX, int fromY, int toX, int toY) {
@@ -1285,12 +1379,14 @@ Ovaj modul je ključan za omogućavanje dinamične interakcije između igrača i
   - Ovakav kod može biti složen za praćenje i održavanje zbog izravnog upravljanja memorijom i stanjima.
 
 - **Objektno-orijentirani pristup**:
+
   - U objektno-orijentiranom programiranju, stanje igre je kapsulirano unutar objekata. Na primjer, kod u jeziku Java:
+
     ```java
     class ChessGame {
         private Board board;
         private Player currentPlayer;
-        
+
         public void makeMove(Position from, Position to) {
             Piece piece = board.getPiece(from);
             board.setPiece(to, piece);
@@ -1299,6 +1395,7 @@ Ovaj modul je ključan za omogućavanje dinamične interakcije između igrača i
         }
     }
     ```
+
   - Iako je kod organiziraniji, nasljeđivanje i mutabilnost mogu uzrokovati dodatne komplikacije.
 
 - **Funkcijski pristup**:
@@ -1307,9 +1404,11 @@ Ovaj modul je ključan za omogućavanje dinamične interakcije između igrača i
 ### Analiza prednosti funkcijskog pristupa u održivosti i skalabilnosti logike igre
 
 - **Održivost**:
+
   - Korištenje nemjenjivih struktura i čistih funkcija smanjuje mogućnost grešaka i olakšava razumijevanje koda. Na primjer, `isValidMove` funkcija je izolirana i lako testirana
 
 - **Skalabilnost**:
+
   - Funkcijski pristup omogućava jednostavno paraleliziranje operacija zbog nemjenjivosti stanja. Na primjer, funkcija `env2Pic` koristi čiste funkcije za prikaz šahovske ploče
 
 - **Testiranje i verifikacija**:
@@ -1321,37 +1420,36 @@ Ovaj modul je ključan za omogućavanje dinamične interakcije između igrača i
 U razvoju ovog projekta korišteni su brojni resursi koji su značajno doprinijeli njegovoj realizaciji. Slijedi detaljan pregled korištenih resursa:
 
 - **Gloss biblioteka za grafiku**:
+
   - **Opis**: Gloss je Haskellova biblioteka dizajnirana za jednostavno i brzo stvaranje 2D grafike, animacija i simulacija. Pruža intuitivno API sučelje koje omogućava brzo crtanje osnovnih oblika, teksta i slika.
   - **Link**: [Gloss na Hackage-u](https://hackage.haskell.org/package/gloss)
   - **Upotreba u projektu**: Gloss biblioteka je ključna za crtanje šahovske ploče i figura. Omogućila je jednostavno stvaranje i ažuriranje grafičkog prikaza igre, te implementaciju animacija za pomicanje figura.
 
 - **Haskell dokumentacija**:
+
   - **Opis**: Službena Haskell dokumentacija pruža detaljan pregled jezika, njegovih značajki, te standardnih biblioteka. Sadrži vodiče, referentne materijale i primjere koji pomažu programerima u učenju i primjeni Haskella.
   - **Link**: [Haskell dokumentacija](https://www.haskell.org/documentation/)
   - **Upotreba u projektu**: Dokumentacija je korištena za razumijevanje osnovnih i naprednih koncepta Haskell jezika, kao što su rad s tipovima, IO operacije, rad s listama i funkcionalno programiranje općenito. Također je pružila uvid u korištenje specifičnih biblioteka i modula.
 
 - **Različiti online resursi i tutorijali za funkcionalno programiranje i Haskell**:
+
   - **Opis**: Online resursi uključuju blogove, tutorijale, forume i video predavanja koji pokrivaju širok raspon tema vezanih uz funkcionalno programiranje i Haskell. Oni su izvor praktičnih savjeta, primjera koda i najbolje prakse.
-  - **Primjeri**:
-    - **Learn You a Haskell for Great Good!**: Popularni online vodič i knjiga za učenje Haskella kroz praktične primjere i humorističan pristup. [Learn You a Haskell](http://learnyouahaskell.com/)
-    - **Hoogle**: Online pretraživač za Haskell API-je koji omogućava brzo pronalaženje funkcija i modula prema tipovima i nazivima. [Hoogle](https://hoogle.haskell.org/)
-    - **Stack Overflow**: Forum za programere gdje se može naći mnogo odgovora na specifična pitanja o Haskellu i funkcionalnom programiranju. [Stack Overflow](https://stackoverflow.com/questions/tagged/haskell)
-    - **YouTube kanali**: Kanali koji nude video lekcije i tutorijale o Haskellu i funkcionalnom programiranju, poput kanala [Philipp Hagenlocher](https://www.youtube.com/watch?v=Vgu82wiiZ90&list=PLe7Ei6viL6jGp1Rfu0dil1JH1SHk9bgDV), [
-Beaufort Tek](https://www.youtube.com/watch?v=JjzBFVhkeMA&list=PLmTgnNwroyn8TnF26YRvW-hvQF1ypztzg) i [
-Derek Banas](https://www.youtube.com/watch?v=02_H3LjqMr8).
+  - **Primjeri**: - **Learn You a Haskell for Great Good!**: Popularni online vodič i knjiga za učenje Haskella kroz praktične primjere i humorističan pristup. [Learn You a Haskell](http://learnyouahaskell.com/) - **Hoogle**: Online pretraživač za Haskell API-je koji omogućava brzo pronalaženje funkcija i modula prema tipovima i nazivima. [Hoogle](https://hoogle.haskell.org/) - **Stack Overflow**: Forum za programere gdje se može naći mnogo odgovora na specifična pitanja o Haskellu i funkcionalnom programiranju. [Stack Overflow](https://stackoverflow.com/questions/tagged/haskell) - **YouTube kanali**: Kanali koji nude video lekcije i tutorijale o Haskellu i funkcionalnom programiranju, poput kanala [Philipp Hagenlocher](https://www.youtube.com/watch?v=Vgu82wiiZ90&list=PLe7Ei6viL6jGp1Rfu0dil1JH1SHk9bgDV), [
+    Beaufort Tek](https://www.youtube.com/watch?v=JjzBFVhkeMA&list=PLmTgnNwroyn8TnF26YRvW-hvQF1ypztzg) i [
+    Derek Banas](https://www.youtube.com/watch?v=02_H3LjqMr8).
   - **Upotreba u projektu**: Ovi resursi su korišteni za učenje haskela, rješavanje problema, te za dobivanje inspiracije i ideja za implementaciju različitih značajki igre.
 
 - **Razvojni alati i okruženja**:
-    - **Opis**: Različiti alati i okruženja korišteni su za razvoj, testiranje i otklanjanje grešaka u projektu.
-    - **GHC (Glasgow Haskell Compiler)**: Standardni kompajler za Haskell koji podržava napredne značajke jezika.
-    - **Stack**: Alat za upravljanje projektima i paketima u Haskellu, koji olakšava instalaciju ovisnosti i upravljanje verzijama. [Stack](https://docs.haskellstack.org/en/stable/README/)
-    - **VS Code s Haskell ekstenzijama**: Popularni uređivač koda s podrškom za Haskell kroz ekstenziju koja pruža funkcionalnosti poput isticanja sintakse, automatskog dovršavanja koda i integracije s kompajlerom.
-        - Haskell Syntax Highlighting
-            - Omogućava isticanje sintakse Haskell koda, prepoznajući ključne riječi, tipove, funkcije i komentare.
-            - **Značajke**: Isticanje ključnih riječi Haskella, Poboljšanje čitljivosti koda
-        - Haskell
-            - Pruža integriranu podršku za Haskell razvoj u Visual Studio Code, uključujući isticanje sintakse, automatsko dovršavanje koda, provjeru tipova i integraciju s GHCi.
-            - **Značajke**: Automatsko dovršavanje koda, Provjera tipova u stvarnom vremenu, Integracija s GHCi, Navigacija kodom
-        - Haskelly
-            - Poboljšava iskustvo pisanja Haskell koda, uključujući isticanje sintakse, provjeru tipova i automatsko formatiranje koda.
-            - **Značajke**: Isticanje sintakse, Provjera tipova, Automatsko formatiranje koda, Linting
+  - **Opis**: Različiti alati i okruženja korišteni su za razvoj, testiranje i otklanjanje grešaka u projektu.
+  - **GHC (Glasgow Haskell Compiler)**: Standardni kompajler za Haskell koji podržava napredne značajke jezika.
+  - **Stack**: Alat za upravljanje projektima i paketima u Haskellu, koji olakšava instalaciju ovisnosti i upravljanje verzijama. [Stack](https://docs.haskellstack.org/en/stable/README/)
+  - **VS Code s Haskell ekstenzijama**: Popularni uređivač koda s podrškom za Haskell kroz ekstenziju koja pruža funkcionalnosti poput isticanja sintakse, automatskog dovršavanja koda i integracije s kompajlerom.
+    - Haskell Syntax Highlighting
+      - Omogućava isticanje sintakse Haskell koda, prepoznajući ključne riječi, tipove, funkcije i komentare.
+      - **Značajke**: Isticanje ključnih riječi Haskella, Poboljšanje čitljivosti koda
+    - Haskell
+      - Pruža integriranu podršku za Haskell razvoj u Visual Studio Code, uključujući isticanje sintakse, automatsko dovršavanje koda, provjeru tipova i integraciju s GHCi.
+      - **Značajke**: Automatsko dovršavanje koda, Provjera tipova u stvarnom vremenu, Integracija s GHCi, Navigacija kodom
+    - Haskelly
+      - Poboljšava iskustvo pisanja Haskell koda, uključujući isticanje sintakse, provjeru tipova i automatsko formatiranje koda.
+      - **Značajke**: Isticanje sintakse, Provjera tipova, Automatsko formatiranje koda, Linting
