@@ -14,9 +14,9 @@ Implementacija je podijeljena u nekoliko modula (njih 8 ukupno) koji upravljaju 
 
 **Kolegij**: Funkcijsko programiranje, ak. god. 2023/2024, **nositelj**: doc. dr. sc. Siniša Miličić
 
-[Source kod projekta ovdje](https://raw.githubusercontent.com/lukablaskovic/HaskelLudens/main/snake/images/snake-ui.png)
+[Source kod projekta ovdje](https://github.com/lukablaskovic/HaskelLudens/tree/main/snake)
 
-![Haskell Snake](./images/snake-ui.png)
+![Haskell Snake](https://raw.githubusercontent.com/lukablaskovic/HaskelLudens/main/snake/images/snake-ui.png)
 
 > Screenshot igre Haskell Snake
 
